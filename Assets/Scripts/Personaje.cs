@@ -27,12 +27,19 @@ public class Personaje : MonoBehaviour
         }
     }
 
-    // Update is called once per frame
     void Update()
     {
         if (estadoActual)
         {
             estadoActual.Actualizar();
+        }
+    }
+
+    void FixedUpdate()
+    {
+        if (estadoActual)
+        {
+            estadoActual.ActualizarFixed();
         }
     }
 
@@ -64,5 +71,6 @@ public class Estado : MonoBehaviour
     }
     public virtual void Salir() { }
     public virtual void Actualizar() { }
+    public virtual void ActualizarFixed() { }
     public virtual void DañoRecibido() { }
 }

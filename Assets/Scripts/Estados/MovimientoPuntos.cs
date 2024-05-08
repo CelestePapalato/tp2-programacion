@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class MovimientoPuntos : Estado
 {
+    [Tooltip("Indica si el objeto se moverá por Rigidbody o Transform.Translate")]
+    [SerializeField] bool useRigidbody;
+    [SerializeField] bool useYAxis;
     [SerializeField] float velocidad;
     [SerializeField] float distanciaParaCambiarPunto;
     [SerializeField] Transform[] listaPuntos;
@@ -12,11 +15,18 @@ public class MovimientoPuntos : Estado
         "movimiento.")]
     [SerializeField] Estado siguienteEstado;
 
-    List<Vector3> puntos = new List<Vector3>();
+    List<Vector2> puntos = new List<Vector2>();
     int indicePuntoActual;
+
+    Rigidbody2D rb;
 
     private void Awake()
     {
+        if (useRigidbody)
+        {
+            useRigidbody = TryGetComponent<Rigidbody2D>(out rb);
+        }
+
         foreach (Transform t in listaPuntos)
         {
             puntos.Add(t.position);
@@ -29,35 +39,61 @@ public class MovimientoPuntos : Estado
         indicePuntoActual = 0;
     }
 
-    public override void Actualizar()
+    public override void ActualizarFixed()
     {
-        Vector3 posicion = transform.position;
-        Vector3 objetivo = puntos[indicePuntoActual];
-        siguientePunto();
-        Vector3 direccion = objetivo - posicion;
-        transform.Translate(direccion.normalized * velocidad * Time.deltaTime);
-    }
-
-    private void siguientePunto()
-    {
-        Vector3 posicion = transform.position;
-        Vector3 objetivo = puntos[indicePuntoActual];
-        float distanciaAlPunto = Vector3.Distance(posicion, objetivo);
-        if (distanciaParaCambiarPunto < 0 || distanciaAlPunto > distanciaParaCambiarPunto)
+        if (useRigidbody)
         {
             return;
         }
+        Vector2 direccion = siguientePunto();
+        if (!useYAxis)
+        {
+            direccion.y = 0;
+        }
+        rb.AddForce(direccion * velocidad * Time.fixedDeltaTime, ForceMode2D.Force);
+    }
+
+    public override void Actualizar()
+    {
+        if (!useRigidbody)
+        {
+            return;
+        }
+        Vector2 direccion = siguientePunto();
+        if (!useYAxis)
+        {
+            direccion.y = 0;
+        }
+        transform.Translate(direccion * velocidad * Time.deltaTime);
+
+    }
+
+    private Vector2 siguientePunto()
+    {
+        Vector2 posicion = transform.position;
+        Vector2 objetivo = puntos[indicePuntoActual];
+        float distanciaAlPunto = Vector2.Distance(posicion, objetivo);
+        Vector2 direccion = objetivo - posicion;
+        if (distanciaParaCambiarPunto < 0 || distanciaAlPunto > distanciaParaCambiarPunto)
+        {
+            return direccion.normalized;
+        }
         int nuevoIndice = indicePuntoActual + 1;
-        if(nuevoIndice >= puntos.Count)
+        Debug.Log(nuevoIndice);
+        if (nuevoIndice >= puntos.Count)
         {
             nuevoIndice = 0;
             if (siguienteEstado)
             {
                 personaje.CambiarEstado(siguienteEstado);
+                return Vector2.zero;
             }
         }
+        Debug.Log(nuevoIndice);
         indicePuntoActual = nuevoIndice;
         objetivo = puntos[indicePuntoActual];
+        direccion = objetivo - posicion;
+        return direccion.normalized;
     }
 
 }
