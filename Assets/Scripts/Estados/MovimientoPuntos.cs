@@ -46,10 +46,6 @@ public class MovimientoPuntos : Estado
             return;
         }
         Vector2 direccion = siguientePunto();
-        if (!useYAxis)
-        {
-            direccion.y = 0;
-        }
         rb.AddForce(direccion * velocidad * Time.fixedDeltaTime, ForceMode2D.Force);
     }
 
@@ -60,10 +56,6 @@ public class MovimientoPuntos : Estado
             return;
         }
         Vector2 direccion = siguientePunto();
-        if (!useYAxis)
-        {
-            direccion.y = 0;
-        }
         transform.Translate(direccion * velocidad * Time.deltaTime);
 
     }
@@ -72,6 +64,10 @@ public class MovimientoPuntos : Estado
     {
         Vector2 posicion = transform.position;
         Vector2 objetivo = puntos[indicePuntoActual];
+        if (!useYAxis)
+        {
+            objetivo.y = posicion.y;
+        }
         float distanciaAlPunto = Vector2.Distance(posicion, objetivo);
         Vector2 direccion = objetivo - posicion;
         if (distanciaParaCambiarPunto < 0 || distanciaAlPunto > distanciaParaCambiarPunto)
@@ -79,7 +75,6 @@ public class MovimientoPuntos : Estado
             return direccion.normalized;
         }
         int nuevoIndice = indicePuntoActual + 1;
-        Debug.Log(nuevoIndice);
         if (nuevoIndice >= puntos.Count)
         {
             nuevoIndice = 0;
@@ -89,7 +84,6 @@ public class MovimientoPuntos : Estado
                 return Vector2.zero;
             }
         }
-        Debug.Log(nuevoIndice);
         indicePuntoActual = nuevoIndice;
         objetivo = puntos[indicePuntoActual];
         direccion = objetivo - posicion;
