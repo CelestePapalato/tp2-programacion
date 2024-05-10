@@ -401,7 +401,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a4f95a6720e6174d9c8b9c0c2b570bf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  primerEstado: {fileID: 645629356}
+  primerEstado: {fileID: 645629348}
 --- !u!212 &645629350
 SpriteRenderer:
   m_ObjectHideFlags: 0
