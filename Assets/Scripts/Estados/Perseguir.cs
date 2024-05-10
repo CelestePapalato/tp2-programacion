@@ -17,7 +17,7 @@ public class Perseguir : Estado
         rb = GetComponent<Rigidbody2D>();
     }
 
-    public override void Entrar(Personaje personajeActual)
+    public override void Entrar(StateMachine personajeActual)
     {
         base.Entrar(personajeActual);
     }

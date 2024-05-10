@@ -8,7 +8,7 @@ public class Esperar : Estado
     [Tooltip("Opcional. Si Personaje no recibe un Estado no nulo, simplemente activa su primer estado.")]
     [SerializeField] Estado siguienteEstado;
 
-    public override void Entrar(Personaje personajeActual)
+    public override void Entrar(StateMachine personajeActual)
     {
         base.Entrar(personajeActual);
         StartCoroutine(EsperarYCambiarEstado());

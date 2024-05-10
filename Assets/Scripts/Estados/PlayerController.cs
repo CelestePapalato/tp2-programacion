@@ -28,7 +28,7 @@ public class PlayerController : Estado
         rb = GetComponent<Rigidbody2D>();
     }
 
-    public override void Entrar(Personaje personajeActual)
+    public override void Entrar(StateMachine personajeActual)
     {
         base.Entrar(personajeActual);
         input_vector = Vector2.zero;

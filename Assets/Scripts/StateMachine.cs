@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Personaje : MonoBehaviour
+public class StateMachine : MonoBehaviour
 {
     [SerializeField] Estado primerEstado;
 
@@ -23,7 +23,7 @@ public class Personaje : MonoBehaviour
         }
         else
         {
-            Debug.LogWarning("El Personaje " + name + "no posee ni encuentra un Estado al que llamar");
+            Debug.LogWarning("El State Machine " + name + "no posee ni encuentra un Estado al que llamar");
         }
     }
 
@@ -63,9 +63,9 @@ public class Personaje : MonoBehaviour
 
 public class Estado : MonoBehaviour
 {
-    protected Personaje personaje;
+    protected StateMachine personaje;
 
-    public virtual void Entrar(Personaje personajeActual)
+    public virtual void Entrar(StateMachine personajeActual)
     {
         personaje = personajeActual;
     }
