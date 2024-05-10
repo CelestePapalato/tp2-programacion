@@ -226,8 +226,8 @@ GameObject:
   - component: {fileID: 545047692}
   - component: {fileID: 545047691}
   - component: {fileID: 545047690}
-  m_Layer: 0
-  m_Name: Square
+  m_Layer: 6
+  m_Name: Piso
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -360,7 +360,7 @@ GameObject:
   - component: {fileID: 645629349}
   - component: {fileID: 645629348}
   - component: {fileID: 645629352}
-  - component: {fileID: 645629353}
+  - component: {fileID: 645629356}
   m_Layer: 0
   m_Name: Personaje
   m_TagString: Untagged
@@ -401,7 +401,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a4f95a6720e6174d9c8b9c0c2b570bf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  primerEstado: {fileID: 645629348}
+  primerEstado: {fileID: 645629356}
 --- !u!212 &645629350
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -482,20 +482,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tiempo: 2
-  siguienteEstado: {fileID: 645629353}
---- !u!114 &645629353
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 645629347}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6d5f9bec12b40de45b34fa12e64d5fb6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  velocidad: 2
+  siguienteEstado: {fileID: 645629356}
 --- !u!50 &645629354
 Rigidbody2D:
   serializedVersion: 4
@@ -558,6 +545,26 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.5
+--- !u!114 &645629356
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 645629347}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 90ceed071e057674facf090097dab731, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxSpeed: 5
+  acceleration: 5
+  decceleration: 10
+  jumpForce: 5
+  floorLayer:
+    serializedVersion: 2
+    m_Bits: 64
+  raycastDistance: 0.51
 --- !u!1 &1127713364
 GameObject:
   m_ObjectHideFlags: 0
