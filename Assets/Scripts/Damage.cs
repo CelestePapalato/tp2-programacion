@@ -1,39 +1,38 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEngine.RuleTile.TilingRuleOutput;
 
-public class Damage : MonoBehaviour
+public interface IDamageDealer
+{
+    public int DamagePoints { get; }
+    public float Impulse { get; }
+    public Vector2 Position { get; }
+
+}
+
+public class Damage : MonoBehaviour, IDamageDealer
 {
     [SerializeField] int damagePoints;
     [SerializeField] float impulse;
 
+    public int DamagePoints { get { return damagePoints; } }
+    public float Impulse { get {  return impulse; } }
+    public Vector2 Position { get { return transform.position; } }
+
     private void OnTriggerEnter2D(Collider2D other)
     {
-        Debug.Log(">:)");
-        damage(other.gameObject);
+        Debug.Log(">:) " + other.name);
+        IDamageable enemyDamageable;
+        IHittable enemyHittable;
+        if (other.TryGetComponent<IDamageable>(out enemyDamageable))
+        {
+            enemyDamageable.Damage(this);
+        }
+        if (other.TryGetComponent<IHittable>(out enemyHittable))
+        {
+            enemyHittable.Hit(this);
+        }
     }
 
-    private void damage(GameObject gameObject)
-    {
-        IDamageable enemy;
-        Rigidbody2D enemyRigidbody;
-        if (!gameObject.TryGetComponent<IDamageable>(out enemy))
-        {
-            return;
-        }
-        enemy.Damage(damagePoints);
-        enemyRigidbody = gameObject.GetComponent<Rigidbody2D>();
-        if (!enemyRigidbody)
-        {
-            enemyRigidbody = gameObject.GetComponentInParent<Rigidbody2D>();
-        }
-        if (enemyRigidbody)
-        {
-            Vector2 position = transform.position;
-            Vector2 impulseVector = enemyRigidbody.position - position;
-            impulseVector.Normalize();
-            enemyRigidbody.AddForce(impulseVector * impulse, ForceMode2D.Impulse);
-        }
-
-    }
 }
