@@ -21,7 +21,6 @@ public class Damage : MonoBehaviour, IDamageDealer
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        Debug.Log(">:) " + other.name);
         IDamageable enemyDamageable;
         IHittable enemyHittable;
         if (other.TryGetComponent<IDamageable>(out enemyDamageable))
