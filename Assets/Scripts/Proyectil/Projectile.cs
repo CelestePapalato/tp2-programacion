@@ -5,6 +5,7 @@ using UnityEngine;
 public class Projectile : MonoBehaviour
 {
     [SerializeField] float speed;
+    [SerializeField] float distance;
 
     Vector2 _direction = Vector2.zero;
     Vector2 Direction
@@ -12,6 +13,8 @@ public class Projectile : MonoBehaviour
         get { return _direction; }
         set { _direction = value.normalized; }
     }
+    float currentDistance = 0;
+    Vector2 previousPosition = Vector2.zero;
 
     Rigidbody2D rb;
 
@@ -22,6 +25,17 @@ public class Projectile : MonoBehaviour
 
     private void Start()
     {
+        previousPosition = rb.position;
         rb.velocity += _direction * speed;
+    }
+
+    private void FixedUpdate()
+    {
+        currentDistance += (rb.position - previousPosition).magnitude;
+        previousPosition = rb.position;
+        if (currentDistance >= distance)
+        {
+            Destroy(gameObject);
+        }
     }
 }
