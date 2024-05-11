@@ -806,7 +806,7 @@ GameObject:
   - component: {fileID: 1542722621}
   - component: {fileID: 1542722622}
   - component: {fileID: 1542722623}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Hurtbox
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -878,7 +878,19 @@ MonoBehaviour:
   maxHealth: 4
   Damaged:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 645629347}
+        m_TargetAssemblyTypeName: 
+        m_MethodName: 
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: 
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 1
   Healed:
     m_PersistentCalls:
       m_Calls: []
