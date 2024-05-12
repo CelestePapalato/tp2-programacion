@@ -2,16 +2,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DisparadorProyectiles : Estado
+public class DisparadorProyectiles : Estado, IObjectTracker
 {
     [SerializeField] bool stopRigidbody = true;
     [SerializeField] int projectileQuantity;
     [SerializeField] float timeBetweenShots;
     [SerializeField] Projectile projectilePrefab;
     [SerializeField] Transform spawnPoint;
-    [SerializeField] Transform target;
     [SerializeField] Estado nextState;
 
+
+    Transform target;
     Rigidbody2D rb;
     int shots = 0;
 
@@ -22,6 +23,7 @@ public class DisparadorProyectiles : Estado
 
     public override void Entrar(StateMachine personajeActual)
     {
+        if(!target) return;
         base.Entrar(personajeActual);
         if(stopRigidbody && rb)
         {
@@ -52,6 +54,11 @@ public class DisparadorProyectiles : Estado
     public override void Salir()
     {
         StopCoroutine(ShootProjectiles());
+    }
+
+    public void TargetUpdate(Transform newTarget)
+    {
+        target = newTarget;
     }
 
 }
