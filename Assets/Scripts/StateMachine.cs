@@ -61,7 +61,7 @@ public class StateMachine : MonoBehaviour
     }
 }
 
-public class Estado : MonoBehaviour
+public abstract class Estado : MonoBehaviour
 {
     protected StateMachine personaje;
 
@@ -69,8 +69,8 @@ public class Estado : MonoBehaviour
     {
         personaje = personajeActual;
     }
-    public virtual void Salir() { }
-    public virtual void Actualizar() { }
-    public virtual void ActualizarFixed() { }
-    public virtual void DañoRecibido() { }
+    public abstract void Salir();
+    public abstract void Actualizar();
+    public abstract void ActualizarFixed();
+    public abstract void DañoRecibido();
 }

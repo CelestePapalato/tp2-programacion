@@ -53,4 +53,14 @@ public class DisparadorProyectiles : Estado
     {
         StopCoroutine(ShootProjectiles());
     }
+
+    public override void Actualizar()
+    {
+        throw new System.NotImplementedException();
+    }
+
+    public override void ActualizarFixed()
+    {
+        throw new System.NotImplementedException();
+    }
 }
