@@ -2,17 +2,23 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PowerUp : MonoBehaviour
+public class PowerUp : MonoBehaviour, IBuff
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    [SerializeField] int cura;
+    [SerializeField] float multiplicadorVelocidad;
+    [SerializeField] float tiempoPowerUp;
 
-    // Update is called once per frame
-    void Update()
+    public void Buff(object o)
     {
-        
+        Vida vida = (Vida)o;
+        if (vida)
+        {
+            vida.Heal(cura);
+        }
+        PlayerController playerController = (PlayerController)o;
+        if (playerController)
+        {
+            playerController.SpeedPowerUp(multiplicadorVelocidad, tiempoPowerUp);
+        }
     }
 }

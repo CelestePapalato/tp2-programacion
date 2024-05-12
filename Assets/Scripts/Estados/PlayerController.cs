@@ -21,10 +21,15 @@ public class PlayerController : Estado
     Rigidbody2D rb;
     Vector2 input_vector = Vector2.zero;
 
+    float currentMaxSpeed;
+    float currentJumpForce;
+
     bool jumpFlag = false;
 
     private void Awake()
     {
+        currentMaxSpeed = maxSpeed;
+        currentJumpForce = jumpForce;
         rb = GetComponent<Rigidbody2D>();
     }
 
@@ -53,7 +58,7 @@ public class PlayerController : Estado
     {
         if(isOnFloor() && jumpFlag)
         {
-            rb.AddForce(jumpForce * Vector3.up, ForceMode2D.Impulse);
+            rb.AddForce(currentJumpForce * Vector3.up, ForceMode2D.Impulse);
         }
         jumpFlag = false;
     }
@@ -67,7 +72,7 @@ public class PlayerController : Estado
     private void Mover()
     {
         Vector2 movementVector = Vector2.zero;
-        Vector2 targetSpeed = input_vector * maxSpeed;
+        Vector2 targetSpeed = input_vector * currentMaxSpeed;
         Vector2 currentSpeed = rb.velocity;
         currentSpeed.y = 0;
         float difference = targetSpeed.magnitude - currentSpeed.magnitude;
@@ -93,4 +98,19 @@ public class PlayerController : Estado
     {
         return Physics2D.Raycast(transform.position, Vector2.down, raycastDistance, floorLayer);
     }
+
+    public void SpeedPowerUp(float multiplier, float time)
+    {
+        StopCoroutine(nameof(PowerUpEnabler));
+        multiplier = Mathf.Max(multiplier, 1f);
+        currentMaxSpeed = maxSpeed * multiplier;
+        StartCoroutine(PowerUpEnabler(time));
+    }
+
+    IEnumerator PowerUpEnabler(float time)
+    {
+        yield return new WaitForSeconds(time);
+        currentMaxSpeed = maxSpeed;
+    }
+
 }
