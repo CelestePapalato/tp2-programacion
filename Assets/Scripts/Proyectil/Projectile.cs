@@ -8,7 +8,7 @@ public class Projectile : MonoBehaviour
     [SerializeField] float distance;
 
     Vector2 _direction = Vector2.zero;
-    Vector2 Direction
+    public Vector2 Direction
     {
         get { return _direction; }
         set { _direction = value.normalized; }
