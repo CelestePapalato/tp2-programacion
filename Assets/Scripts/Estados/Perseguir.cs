@@ -11,7 +11,18 @@ public class Perseguir : Estado, IObjectTracker
 
     private Rigidbody2D rb;
     private Transform target;
-    public Transform Target { get => target; set => target = value; }
+    public Transform Target
+    {
+        get => target;
+        set
+        {
+            target = value;
+            if (!target)
+            {
+                personaje.CambiarEstado(null);
+            }
+        }
+    }
 
     private void Awake()
     {
@@ -21,6 +32,10 @@ public class Perseguir : Estado, IObjectTracker
     public override void Entrar(StateMachine personajeActual)
     {
         base.Entrar(personajeActual);
+        if(target == null)
+        {
+            personaje.CambiarEstado(null);
+        }
     }
 
     public override void ActualizarFixed()

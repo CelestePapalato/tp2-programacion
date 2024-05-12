@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class StateMachine : MonoBehaviour
 {
-    [SerializeField] Estado primerEstado;
+    [SerializeField] protected Estado primerEstado;
 
-    Estado estadoActual;
+    protected Estado estadoActual;
 
     void Start()
     {
@@ -43,7 +43,7 @@ public class StateMachine : MonoBehaviour
         }
     }
 
-    public void CambiarEstado(Estado nuevoEstado)
+    public virtual void CambiarEstado(Estado nuevoEstado)
     {
         if (estadoActual)
         {
