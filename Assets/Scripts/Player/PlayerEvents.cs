@@ -4,15 +4,26 @@ using UnityEngine;
 
 public class PlayerEvents : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    PlayerController controller;
+    Vida vida;
+
+    private void Awake()
     {
-        
+        controller = GetComponent<PlayerController>();
+        vida = GetComponent<Vida>();
+        if (!vida)
+        {
+            vida = GetComponentInChildren<Vida>();
+        }
     }
 
-    // Update is called once per frame
-    void Update()
+    private void OnCollisionEnter2D(Collision2D collision)
     {
-        
+        IBuff buff;
+        if(TryGetComponent<IBuff>(out buff))
+        {
+            buff.Buff(vida);
+            buff.Buff(controller);
+        }
     }
 }
