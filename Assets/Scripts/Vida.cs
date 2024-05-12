@@ -3,16 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-public interface IDamageable
-{
-    public void Damage(IDamageDealer damageDealer);
-}
-
-public interface IHittable
-{
-    public void Hit(IDamageDealer damageDealer);
-}
-
 public class Vida : MonoBehaviour, IDamageable, IHittable
 {
     [SerializeField] int maxHealth;
@@ -45,11 +35,11 @@ public class Vida : MonoBehaviour, IDamageable, IHittable
         {
             return;
         }
-        Debug.Log(name + " " + health);
         health = Mathf.Clamp(health - damageDealer.DamagePoints, 0, maxHealth);
         Damaged.Invoke(health);
         StartCoroutine(invincibilityEnabler());
-        if(health <= 0)
+        Debug.Log(name + " " + health);
+        if (health <= 0)
         {
             Dead.Invoke();
         }
