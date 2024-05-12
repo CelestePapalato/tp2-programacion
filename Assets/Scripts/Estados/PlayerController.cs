@@ -101,13 +101,13 @@ public class PlayerController : Estado
 
     public void SpeedPowerUp(float multiplier, float time)
     {
-        StopCoroutine(nameof(PowerUpEnabler));
+        StopCoroutine(nameof(SpeedPowerUpEnabler));
         multiplier = Mathf.Max(multiplier, 1f);
         currentMaxSpeed = maxSpeed * multiplier;
-        StartCoroutine(PowerUpEnabler(time));
+        StartCoroutine(SpeedPowerUpEnabler(time));
     }
 
-    IEnumerator PowerUpEnabler(float time)
+    IEnumerator SpeedPowerUpEnabler(float time)
     {
         yield return new WaitForSeconds(time);
         currentMaxSpeed = maxSpeed;
