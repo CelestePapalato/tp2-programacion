@@ -8,8 +8,6 @@ public class Enemigo : StateMachine
     [SerializeField] Estado estadoAlEncontrarObjetivo;
     [SerializeField] Estado estadoAlPerderObjetivo;
 
-    bool chase = false;
-
     List<IObjectTracker> trackers = new List<IObjectTracker>();
     private void Awake()
     {
@@ -25,12 +23,10 @@ public class Enemigo : StateMachine
         }
 
         if(newTarget) {
-            chase = true;
             CambiarEstado(estadoAlEncontrarObjetivo);
         }
         else
         {
-            chase = false;
             CambiarEstado(estadoAlPerderObjetivo);
         }
     }
