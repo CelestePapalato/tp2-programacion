@@ -5,12 +5,13 @@ using UnityEngine;
 
 public class Perseguir : Estado, IObjectTracker
 {
-    [SerializeField] Transform target;
     [SerializeField] float speed;
     [SerializeField] Estado nextState;
     [SerializeField] float distanceForNextState;
 
-    Rigidbody2D rb;
+    private Rigidbody2D rb;
+    private Transform target;
+    public Transform Target { get => target; set => target = value; }
 
     private void Awake()
     {
@@ -44,11 +45,6 @@ public class Perseguir : Estado, IObjectTracker
     public override void DañoRecibido()
     {
         base.DañoRecibido();
-    }
-
-    public void TargetUpdate(Transform newTarget)
-    {
-        target = newTarget;
     }
 
 }

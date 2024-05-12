@@ -13,6 +13,7 @@ public class DisparadorProyectiles : Estado, IObjectTracker
 
 
     Transform target;
+    public Transform Target { get => target; set => target = value; }
     Rigidbody2D rb;
     int shots = 0;
 
@@ -54,11 +55,6 @@ public class DisparadorProyectiles : Estado, IObjectTracker
     public override void Salir()
     {
         StopCoroutine(ShootProjectiles());
-    }
-
-    public void TargetUpdate(Transform newTarget)
-    {
-        target = newTarget;
     }
 
 }
