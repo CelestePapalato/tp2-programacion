@@ -69,8 +69,8 @@ public abstract class Estado : MonoBehaviour
     {
         personaje = personajeActual;
     }
-    public abstract void Salir();
-    public abstract void Actualizar();
-    public abstract void ActualizarFixed();
-    public abstract void DañoRecibido();
+    public virtual void Salir() { }
+    public virtual void Actualizar() { }
+    public virtual void ActualizarFixed() { }
+    public virtual void DañoRecibido() { }
 }
