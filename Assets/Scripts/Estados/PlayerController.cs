@@ -12,12 +12,16 @@ public class ExtendedMaths
 
 public class PlayerController : Estado
 {
+    [Header("Movement")]
     [SerializeField] float maxSpeed;
     [SerializeField] float acceleration;
     [SerializeField] float decceleration;
     [SerializeField] float jumpForce;
     [SerializeField] LayerMask floorLayer;
     [SerializeField][Range(0, 1f)] float raycastDistance;
+
+    [Header("Enemies")]
+    [SerializeField] float knockbackImpulse;
 
     Rigidbody2D rb;
     Damage damage;
@@ -38,6 +42,7 @@ public class PlayerController : Estado
         {
             damage = GetComponentInChildren<Damage>();
         }
+        damage.DamageDealed += AddKnockback;
         damage.gameObject.SetActive(false);
     }
 
@@ -118,6 +123,14 @@ public class PlayerController : Estado
     private bool isOnFloor()
     {
         return Physics2D.Raycast(transform.position, Vector2.down, raycastDistance, floorLayer);
+    }
+
+    private void AddKnockback()
+    {
+        Vector2 velocity = rb.velocity;
+        velocity.y = 0;
+        rb.velocity = velocity;
+        rb.AddForce(Vector2.up * knockbackImpulse, ForceMode2D.Impulse);
     }
 
     public void SpeedPowerUp(float multiplier, float time)
