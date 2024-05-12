@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerEvents : MonoBehaviour
+public class PlayerEvents : MonoBehaviour, IBuffable
 {
     PlayerController controller;
     Vida vida;
@@ -17,13 +17,11 @@ public class PlayerEvents : MonoBehaviour
         }
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    public void Accept(IBuff buff)
     {
-        IBuff buff;
-        if(TryGetComponent<IBuff>(out buff))
-        {
-            buff.Buff(vida);
-            buff.Buff(controller);
-        }
+        if (buff == null) return;
+        buff.Buff(vida);
+        buff.Buff(controller);
     }
+        
 }

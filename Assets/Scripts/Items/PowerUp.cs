@@ -5,20 +5,30 @@ using UnityEngine;
 public class PowerUp : MonoBehaviour, IBuff
 {
     [SerializeField] int cura;
-    [SerializeField] float multiplicadorVelocidad;
+    [SerializeField] float multiplicadorVelocidadMaxima;
     [SerializeField] float tiempoPowerUp;
 
     public void Buff(object o)
     {
-        Vida vida = (Vida)o;
+        Vida vida = o as Vida;
         if (vida)
         {
             vida.Heal(cura);
         }
-        PlayerController playerController = (PlayerController)o;
+        PlayerController playerController = o as PlayerController;
         if (playerController)
         {
-            playerController.SpeedPowerUp(multiplicadorVelocidad, tiempoPowerUp);
+            playerController.SpeedPowerUp(multiplicadorVelocidadMaxima, tiempoPowerUp);
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        IBuffable buffable;
+        if(collision.TryGetComponent<IBuffable>(out buffable))
+        {
+            buffable.Accept(this);
+            Destroy(gameObject);
         }
     }
 }

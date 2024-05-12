@@ -26,6 +26,7 @@ public class Vida : MonoBehaviour, IDamageable, IHittable
     public void Heal(int healPoints)
     {
         health = Mathf.Clamp(health + healPoints, 0, maxHealth);
+        Debug.Log(name + " " + health);
         Healed.Invoke(health);
     }
 
