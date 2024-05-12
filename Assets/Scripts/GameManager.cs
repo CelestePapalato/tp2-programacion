@@ -21,23 +21,28 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-        UI_PuntuacionMaxima.text = puntuacionMaxima.ToString();
-        UI_Puntuacion.text = puntuacion.ToString();
+        actualizarUI();
     }
 
     public void SubirPuntuacion(int puntos)
     {
         puntos = Mathf.Max(puntos, 0);
         puntuacion += puntos;
+        if (puntuacion > puntuacionMaxima)
+        {
+            puntuacionMaxima = puntuacion;
+        }
+        actualizarUI();
+    }
+
+    private void actualizarUI()
+    {
+        UI_PuntuacionMaxima.text = puntuacionMaxima.ToString();
         UI_Puntuacion.text = puntuacion.ToString();
     }
 
     public void GameOver()
     {
-        if (puntuacion > puntuacionMaxima)
-        {
-            puntuacionMaxima = puntuacion;
-        }
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 }
