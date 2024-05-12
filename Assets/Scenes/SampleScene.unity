@@ -135,7 +135,8 @@ GameObject:
   - component: {fileID: 155742838}
   - component: {fileID: 155742837}
   - component: {fileID: 155742836}
-  - component: {fileID: 155742835}
+  - component: {fileID: 155742843}
+  - component: {fileID: 155742842}
   - component: {fileID: 155742834}
   - component: {fileID: 155742840}
   - component: {fileID: 155742841}
@@ -160,20 +161,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 1
   nextState: {fileID: 155742840}
-  distanceForNextState: 2.5
---- !u!114 &155742835
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 155742833}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7a4f95a6720e6174d9c8b9c0c2b570bf, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  primerEstado: {fileID: 155742841}
+  distanceForNextState: 2
 --- !u!50 &155742836
 Rigidbody2D:
   serializedVersion: 4
@@ -347,6 +335,41 @@ MonoBehaviour:
   projectilePrefab: {fileID: 5116244938838054073, guid: a8b8c31ea05ddd94980e09abcab9be88, type: 3}
   spawnPoint: {fileID: 155742839}
   nextState: {fileID: 155742834}
+--- !u!114 &155742842
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 155742833}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 68c1ab66fad0eee4cbd6cd11e4441816, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  useRigidbody: 1
+  useYAxis: 0
+  velocidad: 0.7
+  distanciaParaCambiarPunto: 0.15
+  listaPuntos:
+  - {fileID: 1608021428}
+  - {fileID: 1127713365}
+  siguienteEstado: {fileID: 0}
+--- !u!114 &155742843
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 155742833}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: de1ff50811e767d419512c4d167046db, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  primerEstado: {fileID: 155742842}
+  estadoAlEncontrarObjetivo: {fileID: 155742834}
+  estadoAlPerderObjetivo: {fileID: 155742842}
 --- !u!1 &228676610
 GameObject:
   m_ObjectHideFlags: 0
@@ -540,9 +563,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 528908482}
-  - component: {fileID: 528908483}
   - component: {fileID: 528908484}
-  m_Layer: 9
+  - component: {fileID: 528908483}
+  m_Layer: 11
   m_Name: TargetDetector
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -576,7 +599,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ca3ebc93892c76d46b22275eced117ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  contenedorTrackers: {fileID: 155742839}
+  TargetUpdate:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 155742843}
+        m_TargetAssemblyTypeName: Enemigo, Assembly-CSharp
+        m_MethodName: TargetUpdate
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!58 &528908484
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -919,10 +956,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 90ceed071e057674facf090097dab731, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxSpeed: 5
-  acceleration: 5
-  decceleration: 10
-  jumpForce: 5
+  maxSpeed: 8
+  acceleration: 8
+  decceleration: 15
+  jumpForce: 7
   floorLayer:
     serializedVersion: 2
     m_Bits: 64
@@ -966,7 +1003,7 @@ Transform:
   m_GameObject: {fileID: 1127713364}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 3.21, y: 0.24, z: 0.012901574}
+  m_LocalPosition: {x: 5.91, y: -0.93, z: 0.012901574}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1119,7 +1156,7 @@ Transform:
   m_GameObject: {fileID: 1608021427}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -7.54, y: -1.29, z: 0.012901574}
+  m_LocalPosition: {x: 2.31, y: -0.88, z: 0.012901574}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
