@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 
-public class Perseguir : Estado
+public class Perseguir : Estado, IObjectTracker
 {
-    [SerializeField] Transform objective;
+    [SerializeField] Transform target;
     [SerializeField] float speed;
     [SerializeField] Estado nextState;
     [SerializeField] float distanceForNextState;
@@ -24,11 +24,11 @@ public class Perseguir : Estado
 
     public override void ActualizarFixed()
     {
-        if (!objective || !rb)
+        if (!target || !rb)
         {
             return;
         }
-        Vector2 movement = objective.position - transform.position;
+        Vector2 movement = target.position - transform.position;
         float distance = movement.magnitude;
         if(distance <= distanceForNextState)
         {
@@ -46,8 +46,9 @@ public class Perseguir : Estado
         base.DañoRecibido();
     }
 
-    public void ActualizarObjetivo(Transform objetivo)
+    public void TargetUpdate(Transform newTarget)
     {
-        objective = objetivo;
+        target = newTarget;
     }
+
 }
