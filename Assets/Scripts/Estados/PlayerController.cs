@@ -18,7 +18,9 @@ public class PlayerController : Estado
     [SerializeField] float jumpForce;
     [SerializeField] LayerMask floorLayer;
     [SerializeField][Range(0, 1f)] float raycastDistance;
+
     Rigidbody2D rb;
+    Damage damage;
     Vector2 input_vector = Vector2.zero;
 
     float currentMaxSpeed;
@@ -31,6 +33,12 @@ public class PlayerController : Estado
         currentMaxSpeed = maxSpeed;
         currentJumpForce = jumpForce;
         rb = GetComponent<Rigidbody2D>();
+        damage = GetComponent<Damage>();
+        if (!damage)
+        {
+            damage = GetComponentInChildren<Damage>();
+        }
+        damage.gameObject.SetActive(false);
     }
 
     public override void Entrar(StateMachine personajeActual)
@@ -52,6 +60,7 @@ public class PlayerController : Estado
         Saltar();
         ObtenerInputMovimiento();
         Mover();
+        ControlarHitbox();
     }
 
     private void Saltar()
@@ -92,6 +101,18 @@ public class PlayerController : Estado
             movementVector *= difference * currentAcceleration;
         }
         rb.velocity += movementVector;
+    }
+
+    private void ControlarHitbox()
+    {
+        if (isOnFloor())
+        {
+            damage.gameObject.SetActive(false);
+        }
+        else if (rb.velocity.y < 0)
+        {
+            damage.gameObject.SetActive(true);
+        }
     }
 
     private bool isOnFloor()
