@@ -13,8 +13,7 @@ public class DisparadorProyectiles : Estado, IObjectTracker
 
 
     Transform target;
-    public Transform Target { get => target; set => targetBuffer = value; }
-    Transform targetBuffer;
+    public Transform Target { get => target; set => target = value; }
     Rigidbody2D rb;
     int shots = 0;
 
@@ -25,9 +24,11 @@ public class DisparadorProyectiles : Estado, IObjectTracker
 
     public override void Entrar(StateMachine personajeActual)
     {
-        target = targetBuffer;
-        if(!target) return;
         base.Entrar(personajeActual);
+        if (!target) {
+            personaje.CambiarEstado(null);
+            return;
+        }
         if(stopRigidbody && rb)
         {
             rb.velocity = Vector3.zero;
@@ -40,13 +41,16 @@ public class DisparadorProyectiles : Estado, IObjectTracker
     {
         while (shots < projectileQuantity)
         {
+            if(!target)
+            {
+                break;
+            }
             Projectile projectile = Instantiate(projectilePrefab, spawnPoint);
             Vector2 direction = target.position - transform.position;
             projectile.Direction = direction;
             shots++;
             yield return new WaitForSeconds(timeBetweenShots);
         }
-        target = targetBuffer;
         personaje.CambiarEstado(nextState);
     }
 
