@@ -26,7 +26,6 @@ public class Vida : MonoBehaviour, IDamageable, IHittable
     public void Heal(int healPoints)
     {
         health = Mathf.Clamp(health + healPoints, 0, maxHealth);
-        Debug.Log(name + " " + health);
         HealthUpdate.Invoke(health, maxHealth);
     }
 
@@ -39,7 +38,6 @@ public class Vida : MonoBehaviour, IDamageable, IHittable
         health = Mathf.Clamp(health - damageDealer.DamagePoints, 0, maxHealth);
         HealthUpdate.Invoke(health, maxHealth);
         StartCoroutine(invincibilityEnabler());
-        Debug.Log(name + " " + health);
         if (health <= 0 && NoHealth != null)
         {
             NoHealth();
@@ -58,10 +56,8 @@ public class Vida : MonoBehaviour, IDamageable, IHittable
     {
         invincibility = true;
         col.enabled = false;
-        Debug.Log(col.enabled);
         yield return new WaitForSeconds(invincibilityTime);
         invincibility = false;
         col.enabled = true;
-        Debug.Log(col.enabled);
     }
 }
