@@ -1262,7 +1262,7 @@ GameObject:
   - component: {fileID: 863434914}
   - component: {fileID: 863434913}
   - component: {fileID: 863434912}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Power Up Example
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1399,7 +1399,7 @@ GameObject:
   - component: {fileID: 1081045456}
   - component: {fileID: 1081045455}
   - component: {fileID: 1081045458}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Puntos
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1564,7 +1564,7 @@ GameObject:
   - component: {fileID: 1155669652}
   - component: {fileID: 1155669651}
   - component: {fileID: 1155669650}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Power Up Example (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
