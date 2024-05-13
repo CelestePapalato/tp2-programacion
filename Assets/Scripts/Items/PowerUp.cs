@@ -6,6 +6,7 @@ public class PowerUp : MonoBehaviour, IBuff
 {
     [SerializeField] int cura;
     [SerializeField] float multiplicadorVelocidadMaxima;
+    [SerializeField] float multiplicadorSalto;
     [SerializeField] float tiempoPowerUp;
 
     public void Buff(object o)
@@ -19,6 +20,7 @@ public class PowerUp : MonoBehaviour, IBuff
         if (player)
         {
             player.SpeedPowerUp(multiplicadorVelocidadMaxima, tiempoPowerUp);
+            player.JumpPowerUp(multiplicadorSalto, tiempoPowerUp);
         }
     }
 

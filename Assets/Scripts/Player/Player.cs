@@ -46,6 +46,10 @@ public class Player : StateMachine, IBuffable
     {
         StopCoroutine(nameof(SpeedPowerUpEnabler));
         multiplier = Mathf.Max(multiplier, 1f);
+        if(multiplier == 1)
+        {
+            return;
+        }
         modifySpeed(multiplier);
         StartCoroutine(SpeedPowerUpEnabler(time));
     }
@@ -67,15 +71,33 @@ public class Player : StateMachine, IBuffable
 
     private void modifySpeed(float multiplier)
     {
-        movement.MaxSpeed = movement.MaxSpeed * multiplier;
-        movement.Acceleration = movement.Acceleration * multiplier;
-        movement.Decceleration = movement.Decceleration * multiplier;
+        movement.MaxSpeed = ogMaxSpeed * multiplier;
+        movement.Acceleration = ogAcceleration * multiplier;
+        movement.Decceleration = ogDecceleration * multiplier;
     }
 
     IEnumerator SpeedPowerUpEnabler(float time)
     {
         yield return new WaitForSeconds(time);
         resetMovementParameters();
+    }
+
+    public void JumpPowerUp(float multiplier, float time)
+    {
+        StopCoroutine(nameof(JumpPowerUp));
+        multiplier = Mathf.Max(multiplier, 1f);
+        if (multiplier == 1)
+        {
+            return;
+        }
+        movement.JumpForce = ogJumpForce * multiplier;
+        StartCoroutine(JumpPowerUpEnabler(time));
+    }
+
+    IEnumerator JumpPowerUpEnabler(float time)
+    {
+        yield return new WaitForSeconds(time);
+        movement.JumpForce = ogJumpForce;
     }
 
 }

@@ -1283,6 +1283,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cura: 5
   multiplicadorVelocidadMaxima: 1.5
+  multiplicadorSalto: 0
   tiempoPowerUp: 5
 --- !u!58 &863434913
 CircleCollider2D:
@@ -1583,8 +1584,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cura: 5
-  multiplicadorVelocidadMaxima: 2
-  tiempoPowerUp: 2
+  multiplicadorVelocidadMaxima: 0
+  multiplicadorSalto: 2
+  tiempoPowerUp: 3
 --- !u!58 &1155669651
 CircleCollider2D:
   m_ObjectHideFlags: 0
