@@ -371,6 +371,7 @@ MonoBehaviour:
   primerEstado: {fileID: 155742842}
   estadoAlEncontrarObjetivo: {fileID: 155742834}
   estadoAlPerderObjetivo: {fileID: 155742842}
+  puntos: 15
 --- !u!1 &228676610
 GameObject:
   m_ObjectHideFlags: 0
@@ -1010,9 +1011,6 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   Healed:
-    m_PersistentCalls:
-      m_Calls: []
-  Dead:
     m_PersistentCalls:
       m_Calls: []
 --- !u!1 &645629347
@@ -1752,21 +1750,6 @@ MonoBehaviour:
   Healed:
     m_PersistentCalls:
       m_Calls: []
-  Dead:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 2125025936}
-        m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
-        m_MethodName: GameOver
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
 --- !u!1 &1544661550
 GameObject:
   m_ObjectHideFlags: 0
@@ -2102,8 +2085,9 @@ GameObject:
   m_Component:
   - component: {fileID: 2125025935}
   - component: {fileID: 2125025936}
+  - component: {fileID: 2125025937}
   m_Layer: 0
-  m_Name: GameManager
+  m_Name: "Puntuaci\xF3n"
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2138,6 +2122,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   UI_Puntuacion: {fileID: 431811367}
   UI_PuntuacionMaxima: {fileID: 1544661552}
+--- !u!114 &2125025937
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2125025934}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 299dbdb85a2fed749abf44107745a13b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

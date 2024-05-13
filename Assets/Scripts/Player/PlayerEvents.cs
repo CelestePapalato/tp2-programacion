@@ -1,11 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class PlayerEvents : MonoBehaviour, IBuffable
 {
     PlayerController controller;
     Vida vida;
+
+    public UnityAction OnDead;
 
     private void Awake()
     {
@@ -15,6 +18,7 @@ public class PlayerEvents : MonoBehaviour, IBuffable
         {
             vida = GetComponentInChildren<Vida>();
         }
+        vida.Dead += OnDead;
     }
 
     public void Accept(IBuff buff)
@@ -23,5 +27,5 @@ public class PlayerEvents : MonoBehaviour, IBuffable
         buff.Buff(vida);
         buff.Buff(controller);
     }
-        
+
 }
