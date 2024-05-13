@@ -38,8 +38,8 @@ public class Player : StateMachine, IBuffable
 
     private void Dead()
     {
-        this.enabled = false;
         OnDead.Invoke();
+        this.enabled = false;
     }
 
     public void SpeedPowerUp(float multiplier, float time)
