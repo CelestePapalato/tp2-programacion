@@ -21,7 +21,7 @@ public class Enemigo : StateMachine
         {
             vida = GetComponentInChildren<Vida>();
         }
-        vida.Dead += OnDead;
+        vida.NoHealth += OnDead;
     }
 
     public void TargetUpdate(Transform newTarget)

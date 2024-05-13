@@ -26,7 +26,7 @@ public class Player : StateMachine, IBuffable
         {
             vida = GetComponentInChildren<Vida>();
         }
-        vida.Dead += Dead;
+        vida.NoHealth += Dead;
     }
 
     public void Accept(IBuff buff)
@@ -38,6 +38,7 @@ public class Player : StateMachine, IBuffable
 
     private void Dead()
     {
+        movement.Direction = Vector2.zero;
         OnDead.Invoke();
         this.enabled = false;
     }
