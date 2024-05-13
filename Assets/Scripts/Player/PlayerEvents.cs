@@ -8,7 +8,7 @@ public class PlayerEvents : MonoBehaviour, IBuffable
     PlayerController controller;
     Vida vida;
 
-    public UnityAction OnDead;
+    public UnityEvent OnDead;
 
     private void Awake()
     {
@@ -18,7 +18,7 @@ public class PlayerEvents : MonoBehaviour, IBuffable
         {
             vida = GetComponentInChildren<Vida>();
         }
-        vida.Dead += OnDead;
+        vida.Dead += Dead;
     }
 
     public void Accept(IBuff buff)
@@ -26,6 +26,11 @@ public class PlayerEvents : MonoBehaviour, IBuffable
         if (buff == null) return;
         buff.Buff(vida);
         buff.Buff(controller);
+    }
+
+    private void Dead()
+    {
+        OnDead.Invoke();
     }
 
 }
