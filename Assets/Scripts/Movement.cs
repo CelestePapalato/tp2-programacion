@@ -11,11 +11,15 @@ public class Movement : MonoBehaviour
     [SerializeField] LayerMask floorLayer;
     [SerializeField][Range(0, 1f)] float raycastDistance;
 
+    float currentMaxSpeed;
+    float currentAcceleration;
+    float currentDecceleration;
+    float currentJumpForce;
 
-    public float CurrentMaxSpeed { get => CurrentMaxSpeed; set { CurrentMaxSpeed = Mathf.Max(maxSpeed, value); } }
-    public float CurrentAcceleration { get => CurrentAcceleration; set { CurrentAcceleration = Mathf.Max(maxSpeed, value); } }
-    public float CurrentDecceleration { get => CurrentDecceleration; set { CurrentDecceleration = Mathf.Max(maxSpeed, value); } }
-    public float CurrentJumpForce { get => CurrentJumpForce; set { CurrentJumpForce = Mathf.Max(maxSpeed, value); } }
+    public float MaxSpeed { get => maxSpeed; set { currentMaxSpeed = Mathf.Max(maxSpeed, value); } }
+    public float Acceleration { get => acceleration; set { currentAcceleration = Mathf.Max(maxSpeed, value); } }
+    public float Decceleration { get => decceleration; set { currentDecceleration = Mathf.Max(maxSpeed, value); } }
+    public float JumpForce { get => jumpForce; set { currentJumpForce = Mathf.Max(maxSpeed, value); } }
 
 
     Vector2 currentDirection = Vector2.zero;
@@ -34,6 +38,10 @@ public class Movement : MonoBehaviour
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
+        currentMaxSpeed = maxSpeed;
+        currentAcceleration = acceleration;
+        currentDecceleration = decceleration;
+        currentJumpForce = jumpForce;
     }
 
     private void FixedUpdate()
@@ -49,8 +57,9 @@ public class Movement : MonoBehaviour
 
     private void move()
     {
+        Debug.Log(currentDirection);
         Vector2 movementVector = Vector2.zero;
-        Vector2 targetSpeed = currentDirection * CurrentMaxSpeed;
+        Vector2 targetSpeed = currentDirection * currentMaxSpeed;
         Vector2 currentSpeed = rb.velocity;
         currentSpeed.y = 0;
         float difference = targetSpeed.magnitude - currentSpeed.magnitude;
@@ -59,11 +68,11 @@ public class Movement : MonoBehaviour
         {
             if (difference > 0)
             {
-                _acceleration = Mathf.Min(CurrentAcceleration * Time.fixedDeltaTime, difference);
+                _acceleration = Mathf.Min(currentAcceleration * Time.fixedDeltaTime, difference);
             }
             else
             {
-                _acceleration = Mathf.Max(-CurrentDecceleration * Time.fixedDeltaTime, difference);
+                _acceleration = Mathf.Max(-currentDecceleration * Time.fixedDeltaTime, difference);
             }
             difference = 1f / difference;
             movementVector = targetSpeed - currentSpeed;
@@ -74,6 +83,7 @@ public class Movement : MonoBehaviour
 
     public void Jump()
     {
-        rb.AddForce(CurrentJumpForce * Vector3.up, ForceMode2D.Impulse);
+        rb.AddForce(currentJumpForce * Vector3.up, ForceMode2D.Impulse);
     }
+
 }

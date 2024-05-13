@@ -15,10 +15,10 @@ public class PowerUp : MonoBehaviour, IBuff
         {
             vida.Heal(cura);
         }
-        PlayerController playerController = o as PlayerController;
-        if (playerController)
+        Player player = o as Player;
+        if (player)
         {
-            playerController.SpeedPowerUp(multiplicadorVelocidadMaxima, tiempoPowerUp);
+            player.SpeedPowerUp(multiplicadorVelocidadMaxima, tiempoPowerUp);
         }
     }
 

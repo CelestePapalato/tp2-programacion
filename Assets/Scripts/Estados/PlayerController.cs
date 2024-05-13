@@ -12,35 +12,22 @@ public class ExtendedMaths
 
 public class PlayerController : Estado
 {
-    [Header("Movement")]
-    [SerializeField] float maxSpeed;
-    [SerializeField] float acceleration;
-    [SerializeField] float decceleration;
-    [SerializeField] float jumpForce;
-    [SerializeField] LayerMask floorLayer;
-    [SerializeField][Range(0, 1f)] float raycastDistance;
-
     [Header("Enemies")]
     [SerializeField] float knockbackImpulse;
 
     Rigidbody2D rb;
     Damage damage;
+    Movement movement;
     Vector2 input_vector = Vector2.zero;
 
-    float currentMaxSpeed;
-    float currentAcceleration;
-    float currentDecceleration;
-    float currentJumpForce;
+
 
     bool jumpFlag = false;
 
     private void Awake()
     {
-        currentMaxSpeed = maxSpeed;
-        currentAcceleration = acceleration;
-        currentDecceleration = decceleration;
-        currentJumpForce = jumpForce;
         rb = GetComponent<Rigidbody2D>();
+        movement = GetComponent<Movement>();
         damage = GetComponent<Damage>();
         if (!damage)
         {
@@ -74,9 +61,9 @@ public class PlayerController : Estado
 
     private void Saltar()
     {
-        if(isOnFloor() && jumpFlag)
+        if(movement.OnFloor && jumpFlag)
         {
-            rb.AddForce(currentJumpForce * Vector3.up, ForceMode2D.Impulse);
+            movement.Jump();
         }
         jumpFlag = false;
     }
@@ -89,32 +76,12 @@ public class PlayerController : Estado
 
     private void Mover()
     {
-        Vector2 movementVector = Vector2.zero;
-        Vector2 targetSpeed = input_vector * currentMaxSpeed;
-        Vector2 currentSpeed = rb.velocity;
-        currentSpeed.y = 0;
-        float difference = targetSpeed.magnitude - currentSpeed.magnitude;
-        float _acceleration;
-        if (!ExtendedMaths.Approximately(difference, 0, 0.01f))
-        {
-            if (difference > 0)
-            {
-                _acceleration = Mathf.Min(currentAcceleration * Time.fixedDeltaTime, difference);
-            }
-            else
-            {
-                _acceleration = Mathf.Max(-currentDecceleration * Time.fixedDeltaTime, difference);
-            }
-            difference = 1f / difference;
-            movementVector = targetSpeed - currentSpeed;
-            movementVector *= difference * _acceleration;
-        }
-        rb.velocity += movementVector;
+        movement.Direction = input_vector;
     }
 
     private void ControlarHitbox()
     {
-        if (isOnFloor())
+        if (movement.OnFloor)
         {
             damage.gameObject.SetActive(false);
         }
@@ -123,38 +90,12 @@ public class PlayerController : Estado
             damage.gameObject.SetActive(true);
         }
     }
-
-    private bool isOnFloor()
-    {
-        return Physics2D.Raycast(transform.position, Vector2.down, raycastDistance, floorLayer);
-    }
-
     private void AddKnockback()
     {
         Vector2 velocity = rb.velocity;
         velocity.y = 0;
         rb.velocity = velocity;
         rb.AddForce(Vector2.up * knockbackImpulse, ForceMode2D.Impulse);
-    }
-
-    public void SpeedPowerUp(float multiplier, float time)
-    {
-        StopCoroutine(nameof(SpeedPowerUpEnabler));
-        multiplier = Mathf.Max(multiplier, 1f);
-        currentMaxSpeed = maxSpeed * multiplier;
-        currentAcceleration = acceleration * multiplier;
-        currentDecceleration = decceleration * multiplier;
-        StartCoroutine(SpeedPowerUpEnabler(time));
-    }
-
-    IEnumerator SpeedPowerUpEnabler(float time)
-    {
-        Debug.Log(name + " " + currentMaxSpeed);
-        yield return new WaitForSeconds(time);
-        currentMaxSpeed = maxSpeed;
-        currentAcceleration = acceleration;
-        currentDecceleration = decceleration;
-        Debug.Log(name + " " + currentMaxSpeed);
     }
 
 }
