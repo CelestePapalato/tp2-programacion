@@ -54,7 +54,6 @@ public class Perseguir : Estado, IObjectTracker
         }
         direction.y = 0;
         movement.Direction = direction;
-        Debug.Log(movement.Direction);
     }
 
     public override void DañoRecibido()

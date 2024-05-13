@@ -330,7 +330,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d03261099f83d77409983d1ebcac6955, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  stopRigidbody: 1
+  stopMovement: 1
   projectileQuantity: 3
   timeBetweenShots: 1
   projectilePrefab: {fileID: 5116244938838054073, guid: a8b8c31ea05ddd94980e09abcab9be88, type: 3}
@@ -1049,7 +1049,7 @@ GameObject:
   - component: {fileID: 645629358}
   - component: {fileID: 645629356}
   - component: {fileID: 645629359}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Player
   m_TagString: Untagged
   m_Icon: {fileID: 0}
