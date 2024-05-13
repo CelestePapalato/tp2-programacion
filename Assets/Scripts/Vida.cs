@@ -9,7 +9,7 @@ public class Vida : MonoBehaviour, IDamageable, IHittable
     [SerializeField] float invincibilityTime;
     public UnityEvent<int> Damaged;
     public UnityEvent<int> Healed;
-    public UnityEvent Dead;
+    public UnityAction Dead;
 
     int health;
     bool invincibility = false;
@@ -40,9 +40,9 @@ public class Vida : MonoBehaviour, IDamageable, IHittable
         Damaged.Invoke(health);
         StartCoroutine(invincibilityEnabler());
         Debug.Log(name + " " + health);
-        if (health <= 0)
+        if (health <= 0 && Dead != null)
         {
-            Dead.Invoke();
+            Dead();
         }
     }
 
