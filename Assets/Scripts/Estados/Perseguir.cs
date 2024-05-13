@@ -5,7 +5,6 @@ using UnityEngine;
 
 public class Perseguir : Estado, IObjectTracker
 {
-    [SerializeField] float speed;
     [SerializeField] Estado nextState;
     [SerializeField] float distanceForNextState;
 
@@ -55,6 +54,7 @@ public class Perseguir : Estado, IObjectTracker
         }
         direction.y = 0;
         movement.Direction = direction;
+        Debug.Log(movement.Direction);
     }
 
     public override void DañoRecibido()

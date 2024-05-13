@@ -7,7 +7,9 @@ public class MovimientoPuntos : Estado
     [Tooltip("Indica si el objeto se moverá por Rigidbody o Transform.Translate")]
     [SerializeField] bool useRigidbody;
     [SerializeField] bool useYAxis;
-    [SerializeField] float velocidad;
+    [SerializeField]
+    [Tooltip("Esta velocidad es para cuando el objeto no se mueve con Rigidbody")]
+    float velocidad;
     [SerializeField] float distanciaParaCambiarPunto;
     [SerializeField] Transform[] listaPuntos;
     [Tooltip("Estado al que se cambiará cuando se pase " +
@@ -18,13 +20,13 @@ public class MovimientoPuntos : Estado
     List<Vector2> puntos = new List<Vector2>();
     int indicePuntoActual;
 
-    Rigidbody2D rb;
+    Movement movement;
 
     private void Awake()
     {
         if (useRigidbody)
         {
-            useRigidbody = TryGetComponent<Rigidbody2D>(out rb);
+            useRigidbody = TryGetComponent<Movement>(out movement);
         }
 
         foreach (Transform t in listaPuntos)
@@ -41,22 +43,22 @@ public class MovimientoPuntos : Estado
 
     public override void ActualizarFixed()
     {
-        if (useRigidbody)
-        {
-            return;
-        }
-        Vector2 direccion = siguientePunto();
-        rb.AddForce(direccion * velocidad * Time.fixedDeltaTime, ForceMode2D.Force);
-    }
-
-    public override void Actualizar()
-    {
         if (!useRigidbody)
         {
             return;
         }
         Vector2 direccion = siguientePunto();
-        transform.Translate(direccion * velocidad * Time.deltaTime);
+        movement.Direction = direccion.normalized;
+    }
+
+    public override void Actualizar()
+    {
+        if (useRigidbody)
+        {
+            return;
+        }
+        Vector2 direccion = siguientePunto();
+        transform.Translate(direccion.normalized * velocidad * Time.deltaTime);
 
     }
 
@@ -87,7 +89,7 @@ public class MovimientoPuntos : Estado
         indicePuntoActual = nuevoIndice;
         objetivo = puntos[indicePuntoActual];
         direccion = objetivo - posicion;
-        return direccion.normalized;
+        return direccion;
     }
 
 }

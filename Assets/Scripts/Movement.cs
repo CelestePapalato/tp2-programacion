@@ -57,7 +57,6 @@ public class Movement : MonoBehaviour
 
     private void move()
     {
-        Debug.Log(currentDirection);
         Vector2 movementVector = Vector2.zero;
         Vector2 targetSpeed = currentDirection * currentMaxSpeed;
         Vector2 currentSpeed = rb.velocity;

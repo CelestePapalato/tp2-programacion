@@ -160,7 +160,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2a9fdc7b044d5e545a39221927adf2c1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 1
   nextState: {fileID: 155742840}
   distanceForNextState: 2
 --- !u!50 &155742836
@@ -386,8 +385,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxSpeed: 1
-  acceleration: 1
-  decceleration: 2
+  acceleration: 5
+  decceleration: 4
   jumpForce: 0
   floorLayer:
     serializedVersion: 2
@@ -1418,10 +1417,10 @@ CircleCollider2D:
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 3959
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 3959
   m_LayerOverridePriority: 0
   m_ForceSendLayers:
     serializedVersion: 2
