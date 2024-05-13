@@ -15,7 +15,6 @@ public class DisparadorProyectiles : Estado, IObjectTracker
     Transform target;
     public Transform Target { get => target; set => target = value; }
     Movement movement;
-    int shots = 0;
 
     private void Awake()
     {
@@ -33,12 +32,12 @@ public class DisparadorProyectiles : Estado, IObjectTracker
         {
             movement.Direction = Vector3.zero;
         }
-        shots = 0;
         StartCoroutine(ShootProjectiles());
     }
 
     IEnumerator ShootProjectiles()
     {
+        int shots = 0;
         while (shots < projectileQuantity)
         {
             if(!target)
