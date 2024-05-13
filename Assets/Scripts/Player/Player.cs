@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class PlayerEvents : MonoBehaviour, IBuffable
+public class Player : StateMachine, IBuffable
 {
     PlayerController controller;
     Vida vida;
@@ -30,6 +30,7 @@ public class PlayerEvents : MonoBehaviour, IBuffable
 
     private void Dead()
     {
+        this.enabled = false;
         OnDead.Invoke();
     }
 
