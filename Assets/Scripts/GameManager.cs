@@ -1,48 +1,35 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.SceneManagement;
 using TMPro;
 
-public class GameManager : MonoBehaviour
+public static class GameManager
 {
-    public static GameManager instance;
+    public static UnityAction nuevaPuntuacion;
+    public static UnityAction nuevaPuntuacionMaxima;
 
-    [SerializeField] TMP_Text UI_Puntuacion;
-    [SerializeField] TMP_Text UI_PuntuacionMaxima;
-
-    private int puntuacion = 0;
+    private static int puntuacion = 0;
+    public static int Puntuacion { get => puntuacion; }
     private static int puntuacionMaxima = 0;
+    public static int PuntuacionMaxima { get => puntuacionMaxima; }
 
-    private void Awake()
-    {
-        instance = this;
-    }
-
-    private void Start()
-    {
-        actualizarUI();
-    }
-
-    public void SubirPuntuacion(int puntos)
+    public static void SubirPuntuacion(int puntos)
     {
         puntos = Mathf.Max(puntos, 0);
         puntuacion += puntos;
+        nuevaPuntuacion.Invoke();
         if (puntuacion > puntuacionMaxima)
         {
             puntuacionMaxima = puntuacion;
+            nuevaPuntuacionMaxima.Invoke();
         }
-        actualizarUI();
     }
 
-    private void actualizarUI()
-    {
-        UI_PuntuacionMaxima.text = puntuacionMaxima.ToString();
-        UI_Puntuacion.text = puntuacion.ToString();
-    }
-
-    public void GameOver()
+    public static void GameOver()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        puntuacion = 0;
     }
 }

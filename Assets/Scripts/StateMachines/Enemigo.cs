@@ -47,7 +47,7 @@ public class Enemigo : StateMachine
 
     private void OnDead()
     {
-        GameManager.instance.SubirPuntuacion(puntos);
+        GameManager.SubirPuntuacion(puntos);
         Destroy(gameObject);
     }
 }
