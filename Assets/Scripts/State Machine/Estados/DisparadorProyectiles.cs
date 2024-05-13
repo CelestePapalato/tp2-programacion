@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class DisparadorProyectiles : Estado, IObjectTracker
 {
-    [SerializeField] bool stopRigidbody = true;
+    [SerializeField] bool stopMovement = true;
     [SerializeField] int projectileQuantity;
     [SerializeField] float timeBetweenShots;
     [SerializeField] Projectile projectilePrefab;
@@ -14,12 +14,12 @@ public class DisparadorProyectiles : Estado, IObjectTracker
 
     Transform target;
     public Transform Target { get => target; set => target = value; }
-    Rigidbody2D rb;
+    Movement movement;
     int shots = 0;
 
     private void Awake()
     {
-        rb = GetComponent<Rigidbody2D>();
+        movement = GetComponent<Movement>();
     }
 
     public override void Entrar(StateMachine personajeActual)
@@ -29,9 +29,9 @@ public class DisparadorProyectiles : Estado, IObjectTracker
             personaje.CambiarEstado(null);
             return;
         }
-        if(stopRigidbody && rb)
+        if(stopMovement && movement)
         {
-            rb.velocity = Vector3.zero;
+            movement.Direction = Vector3.zero;
         }
         shots = 0;
         StartCoroutine(ShootProjectiles());
