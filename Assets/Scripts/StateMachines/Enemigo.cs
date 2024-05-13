@@ -8,11 +8,20 @@ public class Enemigo : StateMachine
     [SerializeField] Estado estadoAlEncontrarObjetivo;
     [SerializeField] Estado estadoAlPerderObjetivo;
 
+    [Header("Game Manager")]
+    [SerializeField] int puntos;
+
     List<IObjectTracker> trackers = new List<IObjectTracker>();
     private void Awake()
     {
         IObjectTracker[] _trackers = GetComponents<IObjectTracker>();
         trackers = _trackers.ToList();
+        Vida vida = GetComponent<Vida>();
+        if (!vida)
+        {
+            vida = GetComponentInChildren<Vida>();
+        }
+        vida.Dead += OnDead;
     }
 
     public void TargetUpdate(Transform newTarget)
@@ -34,5 +43,11 @@ public class Enemigo : StateMachine
     public override void CambiarEstado(Estado estado)
     {
         base.CambiarEstado(estado);
+    }
+
+    private void OnDead()
+    {
+        GameManager.instance.SubirPuntuacion(puntos);
+        Destroy(gameObject);
     }
 }
