@@ -28,6 +28,8 @@ public class PlayerController : Estado
     Vector2 input_vector = Vector2.zero;
 
     float currentMaxSpeed;
+    float currentAcceleration;
+    float currentDecceleration;
     float currentJumpForce;
 
     bool jumpFlag = false;
@@ -35,6 +37,8 @@ public class PlayerController : Estado
     private void Awake()
     {
         currentMaxSpeed = maxSpeed;
+        currentAcceleration = acceleration;
+        currentDecceleration = decceleration;
         currentJumpForce = jumpForce;
         rb = GetComponent<Rigidbody2D>();
         damage = GetComponent<Damage>();
@@ -90,20 +94,20 @@ public class PlayerController : Estado
         Vector2 currentSpeed = rb.velocity;
         currentSpeed.y = 0;
         float difference = targetSpeed.magnitude - currentSpeed.magnitude;
-        float currentAcceleration;
+        float _acceleration;
         if (!ExtendedMaths.Approximately(difference, 0, 0.01f))
         {
             if (difference > 0)
             {
-                currentAcceleration = Mathf.Min(acceleration * Time.fixedDeltaTime, difference);
+                _acceleration = Mathf.Min(currentAcceleration * Time.fixedDeltaTime, difference);
             }
             else
             {
-                currentAcceleration = Mathf.Max(-decceleration * Time.fixedDeltaTime, difference);
+                _acceleration = Mathf.Max(-currentDecceleration * Time.fixedDeltaTime, difference);
             }
             difference = 1f / difference;
             movementVector = targetSpeed - currentSpeed;
-            movementVector *= difference * currentAcceleration;
+            movementVector *= difference * _acceleration;
         }
         rb.velocity += movementVector;
     }
@@ -138,13 +142,19 @@ public class PlayerController : Estado
         StopCoroutine(nameof(SpeedPowerUpEnabler));
         multiplier = Mathf.Max(multiplier, 1f);
         currentMaxSpeed = maxSpeed * multiplier;
+        currentAcceleration = acceleration * multiplier;
+        currentDecceleration = decceleration * multiplier;
         StartCoroutine(SpeedPowerUpEnabler(time));
     }
 
     IEnumerator SpeedPowerUpEnabler(float time)
     {
+        Debug.Log(name + " " + currentMaxSpeed);
         yield return new WaitForSeconds(time);
         currentMaxSpeed = maxSpeed;
+        currentAcceleration = acceleration;
+        currentDecceleration = decceleration;
+        Debug.Log(name + " " + currentMaxSpeed);
     }
 
 }
