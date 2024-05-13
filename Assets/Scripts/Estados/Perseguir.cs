@@ -11,6 +11,7 @@ public class Perseguir : Estado, IObjectTracker
 
     private Rigidbody2D rb;
     private Transform target;
+    private Movement movement;
     public Transform Target
     {
         get => target;
@@ -27,6 +28,7 @@ public class Perseguir : Estado, IObjectTracker
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
+        movement = GetComponent<Movement>();
     }
 
     public override void Entrar(StateMachine personajeActual)
@@ -44,17 +46,15 @@ public class Perseguir : Estado, IObjectTracker
         {
             return;
         }
-        Vector2 movement = target.position - transform.position;
-        float distance = movement.magnitude;
+        Vector2 direction = target.position - transform.position;
+        float distance = direction.magnitude;
         if(distance <= distanceForNextState)
         {
             personaje.CambiarEstado(nextState);
             return;
         }
-        movement.y = 0;
-        movement = Vector2.ClampMagnitude(movement, 1);
-        rb.velocity += movement * speed;
-        rb.velocity = Vector2.ClampMagnitude(rb.velocity, speed);
+        direction.y = 0;
+        movement.Direction = direction;
     }
 
     public override void DañoRecibido()
