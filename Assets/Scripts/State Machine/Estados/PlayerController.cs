@@ -2,14 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ExtendedMaths
-{
-    public static bool Approximately(float a, float b, float tolerance)
-    {
-        return Mathf.Abs(a - b) < tolerance;
-    }
-}
-
 public class PlayerController : Estado
 {
     [Header("Enemies")]
