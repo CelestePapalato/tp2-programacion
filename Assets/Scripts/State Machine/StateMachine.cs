@@ -7,6 +7,8 @@ public class StateMachine : MonoBehaviour
     [SerializeField] protected Estado primerEstado;
 
     protected Estado estadoActual;
+    protected Estado primerEstadoBuffer;
+    protected Estado ultimoEstado;
 
     void Start()
     {
@@ -45,19 +47,29 @@ public class StateMachine : MonoBehaviour
 
     public virtual void CambiarEstado(Estado nuevoEstado)
     {
-        if (estadoActual)
-        {
-            estadoActual.Salir();
-        }
-        if (nuevoEstado)
-        {
-            estadoActual = nuevoEstado;
-        }
-        else
-        {
-            estadoActual = primerEstado;
-        }
-        estadoActual.Entrar(this);
+        estadoActual?.Salir();
+        estadoActual = (nuevoEstado) ? nuevoEstado : primerEstado;
+        estadoActual?.Entrar(this);
+    }
+
+    private void OnEnable()
+    {
+        primerEstado = primerEstadoBuffer;
+        CambiarEstado(ultimoEstado);
+    }
+
+    private void OnDisable()
+    {
+        ultimoEstado = estadoActual;
+        primerEstadoBuffer = primerEstado;
+        primerEstado = null;
+        estadoActual?.Salir();
+    }
+
+    private void OnDestroy()
+    {
+        primerEstado = null;
+        estadoActual?.Salir();
     }
 }
 
@@ -73,4 +85,16 @@ public abstract class Estado : MonoBehaviour
     public virtual void Actualizar() { }
     public virtual void ActualizarFixed() { }
     public virtual void DañoRecibido() { }
+
+    private void OnDisable()
+    {
+        if (!personaje) { return; }
+        personaje.CambiarEstado(null);
+    }
+
+    private void OnDestroy()
+    {
+        if (!personaje) { return; }
+        personaje.CambiarEstado(null);
+    }
 }
