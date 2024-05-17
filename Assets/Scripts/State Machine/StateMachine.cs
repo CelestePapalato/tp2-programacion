@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class StateMachine : MonoBehaviour
+public abstract class StateMachine : MonoBehaviour
 {
     [SerializeField] protected Estado primerEstado;
 
@@ -10,7 +10,7 @@ public class StateMachine : MonoBehaviour
     protected Estado primerEstadoBuffer;
     protected Estado ultimoEstado;
 
-    void Start()
+    protected virtual void Awake()
     {
         if (!primerEstado)
         {
@@ -18,6 +18,7 @@ public class StateMachine : MonoBehaviour
         }
 
         estadoActual = primerEstado;
+        primerEstadoBuffer = primerEstado;
 
         if (estadoActual)
         {
@@ -29,7 +30,7 @@ public class StateMachine : MonoBehaviour
         }
     }
 
-    void Update()
+    protected virtual void Update()
     {
         if (estadoActual)
         {
@@ -37,7 +38,7 @@ public class StateMachine : MonoBehaviour
         }
     }
 
-    void FixedUpdate()
+    protected virtual void FixedUpdate()
     {
         if (estadoActual)
         {
@@ -54,6 +55,10 @@ public class StateMachine : MonoBehaviour
 
     private void OnEnable()
     {
+        if (estadoActual)
+        {
+            return;
+        }
         primerEstado = primerEstadoBuffer;
         CambiarEstado(ultimoEstado);
     }

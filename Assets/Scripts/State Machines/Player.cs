@@ -19,8 +19,9 @@ public class Player : StateMachine, IBuffable // Mover los buffs de movimiento a
     public UnityEvent OnDead;
 
 
-    private void Awake()
+    protected override void Awake()
     {
+        base.Awake();
         movement = GetComponent<Movement>();
         getOGMovementParameters();
         controller = GetComponent<PlayerController>();

@@ -12,8 +12,9 @@ public class Enemigo : StateMachine
     [SerializeField] int puntos;
 
     List<IObjectTracker> trackers = new List<IObjectTracker>();
-    private void Awake()
+    protected override void Awake()
     {
+        base.Awake();
         IObjectTracker[] _trackers = GetComponents<IObjectTracker>();
         trackers = _trackers.ToList();
         Vida vida = GetComponent<Vida>();

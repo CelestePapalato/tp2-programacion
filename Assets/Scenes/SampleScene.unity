@@ -1400,7 +1400,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   primerEstado: {fileID: 645629356}
-  tiempoAturdido: 6
+  tiempoAturdido: 0.4
   OnDead:
     m_PersistentCalls:
       m_Calls: []
