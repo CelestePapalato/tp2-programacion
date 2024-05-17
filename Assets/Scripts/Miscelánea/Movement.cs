@@ -19,14 +19,15 @@ public class Movement : MonoBehaviour
     [SerializeField] LayerMask floorLayer;
     [SerializeField][Range(0, 1f)] float raycastDistance;
 
-    float currentMaxSpeed;
-    float currentAcceleration;
-    float currentDecceleration;
-    float currentJumpForce;
+
+    [Header("Debug")]
+    [SerializeField] float currentMaxSpeed;
+    [SerializeField] float currentAcceleration;
+    [SerializeField] float currentDecceleration;
+    [SerializeField] float currentJumpForce;
 
     public float MaxSpeed { get => maxSpeed; set { currentMaxSpeed = Mathf.Max(maxSpeed, value); } }
     public float Acceleration { get => acceleration; set { currentAcceleration = Mathf.Max(maxSpeed, value); } }
-    public float Decceleration { get => decceleration; set { currentDecceleration = Mathf.Max(maxSpeed, value); } }
     public float JumpForce { get => jumpForce; set { currentJumpForce = Mathf.Max(maxSpeed, value); } }
 
 
@@ -42,6 +43,9 @@ public class Movement : MonoBehaviour
     public bool OnFloor { get; private set; }
 
     Rigidbody2D rb;
+
+    Vector2 velocity = Vector2.zero;
+    public Vector2 Velocity {  get => velocity; private set { velocity = value; } }
 
     private void Awake()
     {
@@ -65,32 +69,27 @@ public class Movement : MonoBehaviour
 
     private void move()
     {
-        Vector2 movementVector = Vector2.zero;
-        Vector2 targetSpeed = currentDirection * currentMaxSpeed;
-        Vector2 currentSpeed = rb.velocity;
-        currentSpeed.y = 0;
-        float difference = targetSpeed.magnitude - currentSpeed.magnitude;
-        float _acceleration;
-        if (!ExtendedMaths.Approximately(difference, 0, 0.01f))
+        Vector2 new_velocity = rb.velocity;
+        float accel = currentAcceleration * Time.fixedDeltaTime;
+        if (currentDirection.x > 0)
         {
-            if (difference > 0)
-            {
-                _acceleration = Mathf.Min(currentAcceleration * Time.fixedDeltaTime, difference);
-            }
-            else
-            {
-                _acceleration = Mathf.Max(-currentDecceleration * Time.fixedDeltaTime, difference);
-            }
-            difference = 1f / difference;
-            movementVector = targetSpeed - currentSpeed;
-            movementVector *= difference * _acceleration;
+            new_velocity.x = Mathf.Min(new_velocity.x + accel, currentMaxSpeed * currentDirection.x);
         }
-        rb.velocity += movementVector;
+        if(currentDirection.x < 0)
+        {
+            new_velocity.x = Mathf.Max(new_velocity.x - accel, currentMaxSpeed * currentDirection.x);
+        }
+        if(currentDirection.x == 0)
+        {
+            new_velocity.x = Mathf.Lerp(new_velocity.x, 0, decceleration * Time.deltaTime);
+        }
+        rb.velocity = new_velocity;
     }
-
     public void Jump()
     {
+        Vector2 velocity = rb.velocity;
+        velocity.y = 0;
+        rb.velocity = velocity;
         rb.AddForce(currentJumpForce * Vector3.up, ForceMode2D.Impulse);
     }
-
 }

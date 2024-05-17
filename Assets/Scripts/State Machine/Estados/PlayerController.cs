@@ -90,4 +90,8 @@ public class PlayerController : Estado
         rb.AddForce(Vector2.up * knockbackImpulse, ForceMode2D.Impulse);
     }
 
+    public override void DañoRecibido()
+    {
+        // Cambiar al estado esperar y aturdir al jugador
+    }
 }

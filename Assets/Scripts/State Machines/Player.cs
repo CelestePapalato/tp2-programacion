@@ -7,7 +7,6 @@ public class Player : StateMachine, IBuffable
 {
     float ogMaxSpeed;
     float ogAcceleration;
-    float ogDecceleration;
     float ogJumpForce;
 
     PlayerController controller;
@@ -59,7 +58,6 @@ public class Player : StateMachine, IBuffable
     {
         ogMaxSpeed = movement.MaxSpeed;
         ogAcceleration = movement.Acceleration;
-        ogDecceleration = movement.Decceleration;
         ogJumpForce = movement.JumpForce;
     }
 
@@ -67,14 +65,12 @@ public class Player : StateMachine, IBuffable
     {
         movement.MaxSpeed = ogMaxSpeed;
         movement.Acceleration = ogAcceleration;
-        movement.Decceleration = ogDecceleration;
     }
 
     private void modifySpeed(float multiplier)
     {
         movement.MaxSpeed = ogMaxSpeed * multiplier;
         movement.Acceleration = ogAcceleration * multiplier;
-        movement.Decceleration = ogDecceleration * multiplier;
     }
 
     IEnumerator SpeedPowerUpEnabler(float time)
@@ -100,5 +96,4 @@ public class Player : StateMachine, IBuffable
         yield return new WaitForSeconds(time);
         movement.JumpForce = ogJumpForce;
     }
-
 }

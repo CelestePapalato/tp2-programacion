@@ -43,23 +43,13 @@ public class MovimientoPuntos : Estado
 
     public override void ActualizarFixed()
     {
+        Vector2 direccion = siguientePunto();
         if (!useRigidbody)
         {
+            transform.Translate(direccion.normalized * velocidad * Time.fixedDeltaTime);
             return;
         }
-        Vector2 direccion = siguientePunto();
         movement.Direction = direccion.normalized;
-    }
-
-    public override void Actualizar()
-    {
-        if (useRigidbody)
-        {
-            return;
-        }
-        Vector2 direccion = siguientePunto();
-        transform.Translate(direccion.normalized * velocidad * Time.deltaTime);
-
     }
 
     private Vector2 siguientePunto()
