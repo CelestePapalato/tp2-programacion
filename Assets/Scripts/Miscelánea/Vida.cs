@@ -9,6 +9,8 @@ public class Vida : MonoBehaviour, IDamageable, IHittable
     [SerializeField] float invincibilityTime;
     public UnityEvent<int, int> HealthUpdate;
     public UnityAction NoHealth;
+    public UnityAction Damaged;
+    public UnityAction Healed;
 
     int health;
     bool invincibility = false;
