@@ -89,9 +89,4 @@ public class PlayerController : Estado
         rb.velocity = velocity;
         rb.AddForce(Vector2.up * knockbackImpulse, ForceMode2D.Impulse);
     }
-
-    public override void DañoRecibido()
-    {
-        // Cambiar al estado esperar y aturdir al jugador
-    }
 }
