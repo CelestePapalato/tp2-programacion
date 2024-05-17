@@ -77,11 +77,17 @@ public class PlayerController : Estado
         {
             damage.gameObject.SetActive(false);
         }
-        else if (rb.velocity.y < 0)
+        else if (rb.velocity.y < 0) // añadir que se active cuando la caída ya haya tomado cierta velocidad
         {
             damage.gameObject.SetActive(true);
         }
     }
+
+    // La forma en la que se mueve el jugador en el eje x hace que necesite más impulso para ser influenciado. 
+    // Esto en el eje Y no sucede, resultando en una reacción impar entre los ejes.
+    // Que el impulso sea tratado por Movement y no añadido de forma directa al rigidbody.
+    // Que acumule las fuerzas de impulso en un Vector diferente a Velocity
+    // sumarlas al rigidbody después de limitar el movimiento en X
     private void AddKnockback()
     {
         Vector2 velocity = rb.velocity;

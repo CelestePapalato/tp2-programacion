@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class Player : StateMachine, IBuffable
+public class Player : StateMachine, IBuffable // Mover los buffs de movimiento a Movement en vez de que estén en Player?
 {
     [SerializeField] float tiempoAturdido;
 

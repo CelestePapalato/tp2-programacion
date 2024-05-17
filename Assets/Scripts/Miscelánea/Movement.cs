@@ -10,7 +10,7 @@ public class ExtendedMaths
     }
 }
 
-public class Movement : MonoBehaviour
+public class Movement : MonoBehaviour // (*) Hacer que el buff a la velocidad y salto sea un multiplicador en vez de una reasignación
 {
     [SerializeField] float maxSpeed;
     [SerializeField] float acceleration;
@@ -26,6 +26,7 @@ public class Movement : MonoBehaviour
     [SerializeField] float currentDecceleration;
     [SerializeField] float currentJumpForce;
 
+    // (*) y que se multipliquen en estos los parámetros
     public float MaxSpeed { get => maxSpeed; set { currentMaxSpeed = Mathf.Max(maxSpeed, value); } }
     public float Acceleration { get => acceleration; set { currentAcceleration = Mathf.Max(maxSpeed, value); } }
     public float JumpForce { get => jumpForce; set { currentJumpForce = Mathf.Max(maxSpeed, value); } }
