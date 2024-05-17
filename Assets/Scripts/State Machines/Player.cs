@@ -5,6 +5,8 @@ using UnityEngine.Events;
 
 public class Player : StateMachine, IBuffable
 {
+    [SerializeField] float tiempoAturdido;
+
     float ogMaxSpeed;
     float ogAcceleration;
     float ogJumpForce;
@@ -12,20 +14,24 @@ public class Player : StateMachine, IBuffable
     PlayerController controller;
     Vida vida;
     Movement movement;
+    Esperar aturdimiento;
 
     public UnityEvent OnDead;
+
 
     private void Awake()
     {
         movement = GetComponent<Movement>();
         getOGMovementParameters();
         controller = GetComponent<PlayerController>();
+        aturdimiento = GetComponent<Esperar>();
         vida = GetComponent<Vida>();
         if (!vida)
         {
             vida = GetComponentInChildren<Vida>();
         }
         vida.NoHealth += Dead;
+        vida.Damaged += OnDamageReceived;
     }
 
     public void Accept(IBuff buff)
@@ -95,5 +101,15 @@ public class Player : StateMachine, IBuffable
     {
         yield return new WaitForSeconds(time);
         movement.JumpForce = ogJumpForce;
+    }
+
+    private void OnDamageReceived()
+    {
+        estadoActual?.DañoRecibido();
+        if(aturdimiento)
+        {
+            aturdimiento.Tiempo = tiempoAturdido;
+            CambiarEstado(aturdimiento);
+        }
     }
 }

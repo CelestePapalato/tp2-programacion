@@ -10,6 +10,8 @@ public class Esperar : Estado
 
     Movement movement;
 
+    public float Tiempo {  get { return tiempo; } set {  tiempo = value; } }
+
     private void Awake()
     {
         movement = GetComponent<Movement>();
