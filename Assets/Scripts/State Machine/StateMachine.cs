@@ -71,22 +71,23 @@ public abstract class StateMachine : MonoBehaviour
         estadoActual?.Salir();
     }
 
-    private void OnDestroy()
-    {
-        primerEstado = null;
-        estadoActual?.Salir();
-    }
 }
 
 public abstract class Estado : MonoBehaviour
 {
+    protected bool isActive = false;
     protected StateMachine personaje;
 
     public virtual void Entrar(StateMachine personajeActual)
     {
         personaje = personajeActual;
+        isActive = true;
     }
-    public virtual void Salir() { }
+    public virtual void Salir()
+    {
+        isActive = false;
+    }
+
     public virtual void Actualizar() { }
     public virtual void ActualizarFixed() { }
     public virtual void DañoRecibido() { }
@@ -97,9 +98,4 @@ public abstract class Estado : MonoBehaviour
         personaje.CambiarEstado(null);
     }
 
-    private void OnDestroy()
-    {
-        if (!personaje) { return; }
-        personaje.CambiarEstado(null);
-    }
 }

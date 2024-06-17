@@ -60,6 +60,7 @@ public class DisparadorProyectiles : Estado, IObjectTracker
 
     public override void Salir()
     {
+        base.Salir();
         StopCoroutine(ShootProjectiles());
     }
 
