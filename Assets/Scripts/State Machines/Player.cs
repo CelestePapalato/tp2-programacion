@@ -16,7 +16,7 @@ public class Player : StateMachine, IBuffable // Mover los buffs de movimiento a
     Movement movement;
     Esperar aturdimiento;
 
-    public UnityEvent OnDead;
+    public static UnityAction OnDead;
 
 
     protected override void Awake()
@@ -31,8 +31,18 @@ public class Player : StateMachine, IBuffable // Mover los buffs de movimiento a
         {
             vida = GetComponentInChildren<Vida>();
         }
+    }
+
+    private void OnEnable()
+    {
         vida.NoHealth += Dead;
         vida.Damaged += OnDamageReceived;
+    }
+
+    private void OnDisable()
+    {
+        vida.NoHealth -= Dead;
+        vida.Damaged -= OnDamageReceived;
     }
 
     public void Accept(IBuff buff)
@@ -45,7 +55,7 @@ public class Player : StateMachine, IBuffable // Mover los buffs de movimiento a
     private void Dead()
     {
         movement.Direction = Vector2.zero;
-        OnDead.Invoke();
+        OnDead?.Invoke();
         this.enabled = false;
     }
 
