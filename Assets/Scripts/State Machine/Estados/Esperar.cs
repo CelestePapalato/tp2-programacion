@@ -5,7 +5,7 @@ using UnityEngine;
 public class Esperar : Estado
 {
     [SerializeField] float tiempo;
-    [Tooltip("Opcional. Si Personaje no recibe un Estado no nulo, simplemente activa su primer estado.")]
+    [Tooltip("Opcional. Si Personaje recibe un Estado nulo, simplemente activa su primer estado.")]
     [SerializeField] Estado siguienteEstado;
 
     Movement movement;
@@ -32,6 +32,10 @@ public class Esperar : Estado
             movement.enabled = false;
         }
         yield return new WaitForSeconds(tiempo);
+        if(!isActive)
+        {
+            yield break;
+        }
         if(movement)
         {
             movement.enabled = true;
