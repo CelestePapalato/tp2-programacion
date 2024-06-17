@@ -12,8 +12,6 @@ public class PlayerController : Estado
     Movement movement;
     Vector2 input_vector = Vector2.zero;
 
-
-
     bool jumpFlag = false;
 
     private void Awake()
@@ -88,6 +86,8 @@ public class PlayerController : Estado
     // Que el impulso sea tratado por Movement y no añadido de forma directa al rigidbody.
     // Que acumule las fuerzas de impulso en un Vector diferente a Velocity
     // sumarlas al rigidbody después de limitar el movimiento en X
+
+    // 17/6 - Desactivar Movement mientras se está aturdido parece mejor idea. 
     private void AddKnockback()
     {
         Vector2 velocity = rb.velocity;

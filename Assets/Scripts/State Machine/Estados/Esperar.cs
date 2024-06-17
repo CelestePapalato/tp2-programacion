@@ -20,13 +20,22 @@ public class Esperar : Estado
     public override void Entrar(StateMachine personajeActual)
     {
         base.Entrar(personajeActual);
+        StopAllCoroutines();
         StartCoroutine(EsperarYCambiarEstado());
     }
 
     IEnumerator EsperarYCambiarEstado()
     {
-        if(movement) { movement.Direction = Vector2.zero; }
+        if (movement)
+        {
+            movement.Direction = Vector2.zero;
+            movement.enabled = false;
+        }
         yield return new WaitForSeconds(tiempo);
+        if(movement)
+        {
+            movement.enabled = true;
+        }
         if (personaje)
         {
             personaje.CambiarEstado(siguienteEstado);
