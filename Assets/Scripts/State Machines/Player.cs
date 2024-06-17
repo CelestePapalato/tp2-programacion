@@ -7,10 +7,6 @@ public class Player : StateMachine, IBuffable // Mover los buffs de movimiento a
 {
     [SerializeField] float tiempoAturdido;
 
-    float ogMaxSpeed;
-    float ogAcceleration;
-    float ogJumpForce;
-
     PlayerController controller;
     Vida vida;
     Movement movement;
@@ -23,7 +19,6 @@ public class Player : StateMachine, IBuffable // Mover los buffs de movimiento a
     {
         base.Awake();
         movement = GetComponent<Movement>();
-        getOGMovementParameters();
         controller = GetComponent<PlayerController>();
         aturdimiento = GetComponent<Esperar>();
         vida = GetComponent<Vida>();
@@ -67,33 +62,14 @@ public class Player : StateMachine, IBuffable // Mover los buffs de movimiento a
         {
             return;
         }
-        modifySpeed(multiplier);
-        StartCoroutine(SpeedPowerUpEnabler(time));
+        StartCoroutine(SpeedPowerUpEnabler(multiplier, time));
     }
 
-    private void getOGMovementParameters()
+    IEnumerator SpeedPowerUpEnabler(float multiplier, float time)
     {
-        ogMaxSpeed = movement.MaxSpeed;
-        ogAcceleration = movement.Acceleration;
-        ogJumpForce = movement.JumpForce;
-    }
-
-    private void resetMovementParameters()
-    {
-        movement.MaxSpeed = ogMaxSpeed;
-        movement.Acceleration = ogAcceleration;
-    }
-
-    private void modifySpeed(float multiplier)
-    {
-        movement.MaxSpeed = ogMaxSpeed * multiplier;
-        movement.Acceleration = ogAcceleration * multiplier;
-    }
-
-    IEnumerator SpeedPowerUpEnabler(float time)
-    {
+        movement.SpeedMultiplier = multiplier;
         yield return new WaitForSeconds(time);
-        resetMovementParameters();
+        movement.SpeedMultiplier = 1;
     }
 
     public void JumpPowerUp(float multiplier, float time)
@@ -104,14 +80,14 @@ public class Player : StateMachine, IBuffable // Mover los buffs de movimiento a
         {
             return;
         }
-        movement.JumpForce = ogJumpForce * multiplier;
-        StartCoroutine(JumpPowerUpEnabler(time));
+        StartCoroutine(JumpPowerUpEnabler(multiplier, time));
     }
 
-    IEnumerator JumpPowerUpEnabler(float time)
+    IEnumerator JumpPowerUpEnabler(float multiplier, float time)
     {
+        movement.JumpMultiplier = multiplier;
         yield return new WaitForSeconds(time);
-        movement.JumpForce = ogJumpForce;
+        movement.JumpMultiplier = 1;
     }
 
     private void OnDamageReceived()

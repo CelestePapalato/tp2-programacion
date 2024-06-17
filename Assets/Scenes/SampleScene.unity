@@ -503,6 +503,8 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 0
   raycastDistance: 0
+  speedMultiplier: 1
+  jumpMultiplier: 1
   currentMaxSpeed: 0
   currentAcceleration: 0
   currentDecceleration: 0
@@ -1400,7 +1402,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   primerEstado: {fileID: 645629356}
-  tiempoAturdido: 0.4
+  tiempoAturdido: 0.7
 --- !u!114 &645629359
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1421,6 +1423,8 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   raycastDistance: 0.506
+  speedMultiplier: 1
+  jumpMultiplier: 1
   currentMaxSpeed: 0
   currentAcceleration: 0
   currentDecceleration: 0
@@ -1437,7 +1441,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4b3b0301fd4fc9f4ea6133fb081017e4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tiempo: 0
+  tiempo: 0.7
   siguienteEstado: {fileID: 645629356}
 --- !u!1 &862622480
 GameObject:

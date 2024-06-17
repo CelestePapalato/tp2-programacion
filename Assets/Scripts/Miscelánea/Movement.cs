@@ -21,16 +21,51 @@ public class Movement : MonoBehaviour // (*) Hacer que el buff a la velocidad y 
 
 
     [Header("Debug")]
+    [SerializeField] float speedMultiplier = 1f;
+    [SerializeField] float jumpMultiplier = 1f;
     [SerializeField] float currentMaxSpeed;
     [SerializeField] float currentAcceleration;
     [SerializeField] float currentDecceleration;
     [SerializeField] float currentJumpForce;
 
     // (*) y que se multipliquen en estos los parámetros
+    /*
     public float MaxSpeed { get => maxSpeed; set { currentMaxSpeed = Mathf.Max(maxSpeed, value); } }
     public float Acceleration { get => acceleration; set { currentAcceleration = Mathf.Max(maxSpeed, value); } }
     public float JumpForce { get => jumpForce; set { currentJumpForce = Mathf.Max(maxSpeed, value); } }
+    */
 
+    public float SpeedMultiplier { get => speedMultiplier; set => speedMultiplier = value; }
+    public float JumpMultiplier { get => jumpMultiplier; set => jumpMultiplier = value; }
+
+    public float MaxSpeed
+    {
+        get => maxSpeed * speedMultiplier;
+        set
+        {
+            if (value > 0)
+            {
+                float diff = maxSpeed / value;
+                maxSpeed = value;
+                acceleration *= diff;
+                decceleration *= diff;
+            }
+            if (value == 0)
+            {
+                maxSpeed = 0;
+            }
+        }
+    }
+    public float Acceleration
+    {
+        get => acceleration * speedMultiplier; private set { acceleration = (value > 0) ? value : acceleration; }
+    }
+    public float Decceleration
+    {
+        get => decceleration * speedMultiplier; private set { decceleration = (value > 0) ? value : decceleration; }
+    }
+
+    public float JumpForce { get => jumpForce * jumpMultiplier;}
 
     Vector2 currentDirection = Vector2.zero;
     public Vector2 Direction
@@ -51,10 +86,6 @@ public class Movement : MonoBehaviour // (*) Hacer que el buff a la velocidad y 
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
-        currentMaxSpeed = maxSpeed;
-        currentAcceleration = acceleration;
-        currentDecceleration = decceleration;
-        currentJumpForce = jumpForce;
     }
 
     private void FixedUpdate()
@@ -71,18 +102,18 @@ public class Movement : MonoBehaviour // (*) Hacer que el buff a la velocidad y 
     private void move()
     {
         Vector2 new_velocity = rb.velocity;
-        float accel = currentAcceleration * Time.fixedDeltaTime;
+        float accel = Acceleration * Time.fixedDeltaTime;
         if (currentDirection.x > 0)
         {
-            new_velocity.x = Mathf.Min(new_velocity.x + accel, currentMaxSpeed * currentDirection.x);
+            new_velocity.x = Mathf.Min(new_velocity.x + accel, MaxSpeed * currentDirection.x);
         }
         if(currentDirection.x < 0)
         {
-            new_velocity.x = Mathf.Max(new_velocity.x - accel, currentMaxSpeed * currentDirection.x);
+            new_velocity.x = Mathf.Max(new_velocity.x - accel, MaxSpeed * currentDirection.x);
         }
         if(currentDirection.x == 0)
         {
-            new_velocity.x = Mathf.Lerp(new_velocity.x, 0, decceleration * Time.deltaTime);
+            new_velocity.x = Mathf.Lerp(new_velocity.x, 0, Decceleration * Time.deltaTime);
         }
         rb.velocity = new_velocity;
     }
@@ -91,6 +122,6 @@ public class Movement : MonoBehaviour // (*) Hacer que el buff a la velocidad y 
         Vector2 velocity = rb.velocity;
         velocity.y = 0;
         rb.velocity = velocity;
-        rb.AddForce(currentJumpForce * Vector3.up, ForceMode2D.Impulse);
+        rb.AddForce(JumpForce * Vector3.up, ForceMode2D.Impulse);
     }
 }

@@ -87,7 +87,6 @@ public class PlayerController : Estado
     // Que acumule las fuerzas de impulso en un Vector diferente a Velocity
     // sumarlas al rigidbody después de limitar el movimiento en X
 
-    // 17/6 - Desactivar Movement mientras se está aturdido parece mejor idea. 
     private void AddKnockback()
     {
         Vector2 velocity = rb.velocity;
