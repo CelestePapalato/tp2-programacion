@@ -8,25 +8,25 @@ public class UIPuntuacion : MonoBehaviour
     [SerializeField] TMP_Text UI_Puntuacion;
     [SerializeField] TMP_Text UI_PuntuacionMaxima;
 
-    private void Awake()
+    private void OnEnable()
     {
         GameManager.nuevaPuntuacion += actualizarPuntuacion;
         GameManager.nuevaPuntuacionMaxima += actualizarPuntuacionMaxima;
     }
 
-    private void Start()
+    private void OnDisable()
     {
-        actualizarPuntuacion();
-        actualizarPuntuacionMaxima();
+        GameManager.nuevaPuntuacion -= actualizarPuntuacion;
+        GameManager.nuevaPuntuacionMaxima -= actualizarPuntuacionMaxima;
     }
 
-    private void actualizarPuntuacion()
+    private void actualizarPuntuacion(int puntacion)
     {
-        UI_Puntuacion.text = GameManager.Puntuacion.ToString();
+        UI_Puntuacion.text = puntacion + "";
     }
 
-    private void actualizarPuntuacionMaxima()
+    private void actualizarPuntuacionMaxima(int puntuacionMaxima)
     {
-        UI_PuntuacionMaxima.text = GameManager.PuntuacionMaxima.ToString();
+        UI_PuntuacionMaxima.text = puntuacionMaxima + "";
     }
 }

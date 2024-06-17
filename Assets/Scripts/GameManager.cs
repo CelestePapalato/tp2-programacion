@@ -7,8 +7,8 @@ using TMPro;
 
 public class GameManager : MonoBehaviour
 {
-    public static UnityAction nuevaPuntuacion;
-    public static UnityAction nuevaPuntuacionMaxima;
+    public static UnityAction<int> nuevaPuntuacion;
+    public static UnityAction<int> nuevaPuntuacionMaxima;
 
     private int puntuacion = 0;
     public int Puntuacion { get => puntuacion; }
@@ -29,15 +29,21 @@ public class GameManager : MonoBehaviour
         Player.OnDead -= GameOver;
     }
 
+    private void Start()
+    {
+        nuevaPuntuacion?.Invoke(puntuacion);
+        nuevaPuntuacionMaxima?.Invoke(puntuacionMaxima);
+    }
+
     public void SubirPuntuacion(int puntos)
     {
         puntos = Mathf.Max(puntos, 0);
         puntuacion += puntos;
-        nuevaPuntuacion?.Invoke();
+        nuevaPuntuacion?.Invoke(puntuacion);
         if (puntuacion > puntuacionMaxima)
         {
             puntuacionMaxima = puntuacion;
-            nuevaPuntuacionMaxima?.Invoke();
+            nuevaPuntuacionMaxima?.Invoke(puntuacionMaxima);
         }
     }
 
