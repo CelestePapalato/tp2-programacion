@@ -1518,10 +1518,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c048276766118274fa17578688cc8023, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cura: 5
-  multiplicadorVelocidadMaxima: 1.2
-  multiplicadorSalto: 0
-  tiempoPowerUp: 5
+  powerUp: {fileID: 11400000, guid: 3da1e591e0de8a2488cf199af8510eb1, type: 2}
 --- !u!58 &863434913
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -1820,10 +1817,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c048276766118274fa17578688cc8023, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cura: 5
-  multiplicadorVelocidadMaxima: 0
-  multiplicadorSalto: 1.5
-  tiempoPowerUp: 10
+  powerUp: {fileID: 11400000, guid: 50faef82211aa4b46a3e9d6150b11ebb, type: 2}
 --- !u!58 &1155669651
 CircleCollider2D:
   m_ObjectHideFlags: 0
