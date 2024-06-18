@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
+[RequireComponent(typeof(Esperar))]
+[RequireComponent(typeof(PlayerController))]
 public class Player : StateMachine, IBuffable // Mover los buffs de movimiento a Movement en vez de que estén en Player?
 {
     [SerializeField] float tiempoAturdido;
@@ -17,7 +19,6 @@ public class Player : StateMachine, IBuffable // Mover los buffs de movimiento a
 
     protected override void Awake()
     {
-        base.Awake();
         movement = GetComponent<Movement>();
         controller = GetComponent<PlayerController>();
         aturdimiento = GetComponent<Esperar>();
@@ -26,6 +27,8 @@ public class Player : StateMachine, IBuffable // Mover los buffs de movimiento a
         {
             vida = GetComponentInChildren<Vida>();
         }
+        primerEstado = controller;
+        base.Awake();
     }
 
     private void OnEnable()
