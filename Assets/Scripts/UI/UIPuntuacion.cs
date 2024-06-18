@@ -10,14 +10,14 @@ public class UIPuntuacion : MonoBehaviour
 
     private void OnEnable()
     {
-        GameManager.nuevaPuntuacion += actualizarPuntuacion;
-        GameManager.nuevaPuntuacionMaxima += actualizarPuntuacionMaxima;
+        GameManager.OnNuevaPuntuacion += actualizarPuntuacion;
+        GameManager.OnNuevaPuntuacionMaxima += actualizarPuntuacionMaxima;
     }
 
     private void OnDisable()
     {
-        GameManager.nuevaPuntuacion -= actualizarPuntuacion;
-        GameManager.nuevaPuntuacionMaxima -= actualizarPuntuacionMaxima;
+        GameManager.OnNuevaPuntuacion -= actualizarPuntuacion;
+        GameManager.OnNuevaPuntuacionMaxima -= actualizarPuntuacionMaxima;
     }
 
     private void actualizarPuntuacion(int puntacion)
