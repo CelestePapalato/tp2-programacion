@@ -11,7 +11,8 @@ public class GameManager : MonoBehaviour
 
     public static UnityAction<int> OnNuevaPuntuacion;
     public static UnityAction<int> OnNuevaPuntuacionMaxima;
-    public static UnityEvent OnLevelCompleted;
+
+    public static UnityAction<bool> OnGameOver;
 
     private int puntuacion = 0;
     public int Puntuacion { get => puntuacion; }
@@ -21,6 +22,7 @@ public class GameManager : MonoBehaviour
     private void Awake()
     {
         Instance = this;
+        Time.timeScale = 1;
     }
 
     private void OnEnable()
@@ -39,6 +41,7 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
+        puntuacion = 0;
         OnNuevaPuntuacion?.Invoke(puntuacion);
         OnNuevaPuntuacionMaxima?.Invoke(puntuacionMaxima);
     }
@@ -57,12 +60,20 @@ public class GameManager : MonoBehaviour
 
     private void GameOver()
     {
+        Time.timeScale = 0;
+        OnGameOver?.Invoke(false);
+        //SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        // Cambiar lógica para cuando termine la pantalla de resultados
+    }
+
+    public void ReiniciarNivel()
+    {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-        puntuacion = 0;
     }
 
     public void NivelCompletado()
     {
-        OnLevelCompleted?.Invoke();
+        Time.timeScale = 0;
+        OnGameOver?.Invoke(true);
     }
 }
