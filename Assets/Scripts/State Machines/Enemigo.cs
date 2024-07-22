@@ -4,65 +4,16 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class Enemigo : StateMachine
+public class Enemigo : Character
 {
-    public static UnityAction<int> OnDead;
-
-    [SerializeField] Estado estadoAlEncontrarObjetivo;
-    [SerializeField] Estado estadoAlPerderObjetivo;
+    public static new UnityAction<int> OnDead;
 
     [Header("Game Manager")]
     [SerializeField] int puntos;
 
-    Vida vida;
-
-    List<IObjectTracker> trackers = new List<IObjectTracker>();
-    protected override void Awake()
+    protected override void Dead()
     {
-        base.Awake();
-        IObjectTracker[] _trackers = GetComponents<IObjectTracker>();
-        trackers = _trackers.ToList();
-        vida = GetComponent<Vida>();
-        if (!vida)
-        {
-            vida = GetComponentInChildren<Vida>();
-        }
-    }
-
-    private void OnEnable()
-    {
-        if (vida)
-        {
-            vida.NoHealth += Dead;
-        }
-    }
-
-    private void OnDisable()
-    {
-        if(vida)
-        {
-            vida.NoHealth -= Dead;
-        }
-    }
-
-    public void TargetUpdate(Transform newTarget)
-    {
-        foreach (IObjectTracker tracker in trackers)
-        {
-            tracker.Target = newTarget;
-        }
-
-        if(newTarget) {
-            CambiarEstado(estadoAlEncontrarObjetivo);
-        }
-        else
-        {
-            CambiarEstado(estadoAlPerderObjetivo);
-        }
-    }
-
-    private void Dead()
-    {
+        base.Dead();
         OnDead?.Invoke(puntos);
         Destroy(gameObject);
     }

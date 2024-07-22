@@ -5,42 +5,23 @@ using UnityEngine.Events;
 
 [RequireComponent(typeof(Esperar))]
 [RequireComponent(typeof(PlayerController))]
-public class Player : StateMachine, IBuffable // Mover los buffs de movimiento a Movement en vez de que estén en Player?
+public class Player : Character, IBuffable // Mover los buffs de movimiento a Movement en vez de que estén en Player?
 {
-    [SerializeField] float tiempoAturdido;
-
     PlayerController controller;
-    Vida vida;
-    Movement movement;
-    Esperar aturdimiento;
 
-    public static UnityAction OnDead;
-
+    public static new UnityAction OnDead;
 
     protected override void Awake()
     {
-        movement = GetComponent<Movement>();
-        controller = GetComponent<PlayerController>();
-        aturdimiento = GetComponent<Esperar>();
-        vida = GetComponent<Vida>();
-        if (!vida)
-        {
-            vida = GetComponentInChildren<Vida>();
-        }
-        primerEstado = controller;
         base.Awake();
+        controller = GetComponent<PlayerController>();
+        primerEstado = controller;
     }
-
-    private void OnEnable()
+    protected override void Dead()
     {
-        vida.NoHealth += Dead;
-        vida.Damaged += OnDamageReceived;
-    }
-
-    private void OnDisable()
-    {
-        vida.NoHealth -= Dead;
-        vida.Damaged -= OnDamageReceived;
+        base.Dead();
+        OnDead?.Invoke();
+        this.enabled = false;
     }
 
     public void Accept(IBuff buff)
@@ -48,13 +29,6 @@ public class Player : StateMachine, IBuffable // Mover los buffs de movimiento a
         if (buff == null) return;
         buff.Buff(vida);
         buff.Buff(this);
-    }
-
-    private void Dead()
-    {
-        movement.Direction = Vector2.zero;
-        OnDead?.Invoke();
-        this.enabled = false;
     }
 
     public void SpeedPowerUp(float multiplier, float time)
@@ -83,6 +57,7 @@ public class Player : StateMachine, IBuffable // Mover los buffs de movimiento a
         {
             return;
         }
+        Debug.Log(multiplier + " " + time);
         StartCoroutine(JumpPowerUpEnabler(multiplier, time));
     }
 
@@ -91,15 +66,5 @@ public class Player : StateMachine, IBuffable // Mover los buffs de movimiento a
         movement.JumpMultiplier = multiplier;
         yield return new WaitForSeconds(time);
         movement.JumpMultiplier = 1;
-    }
-
-    private void OnDamageReceived()
-    {
-        estadoActual?.DañoRecibido();
-        if(aturdimiento)
-        {
-            aturdimiento.Tiempo = tiempoAturdido;
-            CambiarEstado(aturdimiento);
-        }
     }
 }

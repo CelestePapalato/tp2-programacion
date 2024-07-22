@@ -7,34 +7,33 @@ using UnityEngine.Events;
 public class Character : StateMachine
 {
     [Header("Al recibir daño")]
-    [SerializeField] float tiempoAturdido;
+    [SerializeField] protected float tiempoAturdido;
 
     [Header("Seguimiento de objetos")]
-    [SerializeField] Estado estadoAlEncontrarObjetivo;
-    [SerializeField] Estado estadoAlPerderObjetivo;
+    [SerializeField] protected Estado estadoAlEncontrarObjetivo;
+    [SerializeField] protected Estado estadoAlPerderObjetivo;
 
     public UnityAction OnDead;
 
-    Vida vida;
-    Movement movement;
-    Esperar aturdimiento;
+    protected Vida vida;
+    protected Movement movement;
+    protected Esperar aturdimiento;
 
-    List<IObjectTracker> trackers = new List<IObjectTracker>();
+    protected List<IObjectTracker> trackers = new List<IObjectTracker>();
 
-    public Movement MovementComponent { get; }
+    public Movement MovementComponent { get => movement; }
 
     protected override void Awake()
     {
         base.Awake();
         IObjectTracker[] _trackers = GetComponents<IObjectTracker>();
         trackers = _trackers.ToList();
-        vida = GetComponent<Vida>();
-        if (!vida)
-        {
-            vida = GetComponentInChildren<Vida>();
-        }
+        movement = GetComponent<Movement>();
+        aturdimiento = GetComponent<Esperar>();
+        vida = GetComponentInChildren<Vida>();
+        
     }
-    private void OnEnable()
+    protected void OnEnable()
     {
         if (vida)
         {
@@ -43,7 +42,7 @@ public class Character : StateMachine
         }
     }
 
-    private void OnDisable()
+    protected void OnDisable()
     {
         if (vida)
         {
@@ -69,7 +68,7 @@ public class Character : StateMachine
         }
     }
 
-    private void Dead()
+    protected virtual void Dead()
     {
         if (movement)
         {
@@ -79,7 +78,7 @@ public class Character : StateMachine
         this.enabled = false;
     }
 
-    private void OnDamageReceived()
+    protected void OnDamageReceived()
     {
         estadoActual?.DañoRecibido();
         if (aturdimiento && tiempoAturdido > 0)
