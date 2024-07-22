@@ -1675,6 +1675,11 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1235618550 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3377259073874561656, guid: bce098e3f41d8dc43becf05d491fde01, type: 3}
+  m_PrefabInstance: {fileID: 5415699680884743266}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1300732372
 GameObject:
   m_ObjectHideFlags: 0
@@ -2126,14 +2131,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Caracol
       objectReference: {fileID: 0}
-    - target: {fileID: 2112104156859794485, guid: 55067296437f223438c86165bf18b379, type: 3}
-      propertyPath: m_FlipX
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2112104156859794485, guid: 55067296437f223438c86165bf18b379, type: 3}
-      propertyPath: m_FlipY
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 6647609886106486347, guid: 55067296437f223438c86165bf18b379, type: 3}
       propertyPath: listaPuntos.Array.data[0]
       value: 
@@ -2247,6 +2244,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 9171334401753466239, guid: bce098e3f41d8dc43becf05d491fde01, type: 3}
+      propertyPath: HealthUpdate.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1235618550}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
