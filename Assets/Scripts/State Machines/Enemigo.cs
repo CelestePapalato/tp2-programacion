@@ -8,6 +8,8 @@ public class Enemigo : Character
 {
     public static new UnityAction<int> OnDead;
 
+    public UnityEvent OnDeadEvent;
+
     [Header("Game Manager")]
     [SerializeField] int puntos;
 
@@ -15,6 +17,7 @@ public class Enemigo : Character
     {
         base.Dead();
         OnDead?.Invoke(puntos);
+        OnDeadEvent?.Invoke();
         Destroy(gameObject);
     }
 }
