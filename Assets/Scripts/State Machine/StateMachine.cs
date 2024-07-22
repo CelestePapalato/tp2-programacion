@@ -10,7 +10,7 @@ public abstract class StateMachine : MonoBehaviour
     protected Estado primerEstadoBuffer;
     protected Estado ultimoEstado;
 
-    protected virtual void Awake()
+    protected virtual void Start()
     {
         if (!primerEstado)
         {

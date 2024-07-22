@@ -414,7 +414,6 @@ GameObject:
   - component: {fileID: 1959535732624908247}
   - component: {fileID: 8107969479914822345}
   - component: {fileID: 3059392573701645224}
-  - component: {fileID: 5040007461261746224}
   m_Layer: 5
   m_Name: HUD
   m_TagString: Untagged
@@ -505,20 +504,6 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
---- !u!114 &5040007461261746224
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7464559656420221960}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 299dbdb85a2fed749abf44107745a13b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  UI_Puntuacion: {fileID: 0}
-  UI_PuntuacionMaxima: {fileID: 0}
 --- !u!1 &8506907799490684763
 GameObject:
   m_ObjectHideFlags: 0

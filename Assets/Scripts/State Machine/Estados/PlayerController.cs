@@ -2,35 +2,44 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerController : Estado
+public class PlayerController : CharacterState
 {
     [Header("Enemies")]
     [SerializeField] float knockbackImpulse;
 
-    Rigidbody2D rb;
-    Damage damage;
-    Movement movement;
     Vector2 input_vector = Vector2.zero;
 
     bool jumpFlag = false;
-
-    private void Awake()
-    {
-        rb = GetComponent<Rigidbody2D>();
-        movement = GetComponent<Movement>();
-        damage = GetComponent<Damage>();
-        if (!damage)
-        {
-            damage = GetComponentInChildren<Damage>();
-        }
-        damage.DamageDealed += AddKnockback;
-        damage.gameObject.SetActive(false);
-    }
 
     public override void Entrar(StateMachine personajeActual)
     {
         base.Entrar(personajeActual);
         input_vector = Vector2.zero;
+        damage.DamageDealed += AddKnockback;
+        damage.gameObject.SetActive(false);
+    }
+
+    public override void Salir()
+    {
+        damage.DamageDealed -= AddKnockback;
+        damage.gameObject.SetActive(false);
+        base.Salir();
+    }
+
+    private void OnEnable()
+    {
+        if(damage)
+        {
+            damage.DamageDealed += AddKnockback;
+        }
+    }
+
+    private void OnDisable()
+    {
+        if (damage)
+        {
+            damage.DamageDealed -= AddKnockback;
+        }
     }
 
     public override void Actualizar()
@@ -75,7 +84,7 @@ public class PlayerController : Estado
         {
             damage.gameObject.SetActive(false);
         }
-        else if (rb.velocity.y < 0) // añadir que se active cuando la caída ya haya tomado cierta velocidad
+        else if (movement.RigidbodyComponent.velocity.y < 0) // añadir que se active cuando la caída ya haya tomado cierta velocidad
         {
             damage.gameObject.SetActive(true);
         }
@@ -89,9 +98,9 @@ public class PlayerController : Estado
 
     private void AddKnockback()
     {
-        Vector2 velocity = rb.velocity;
+        Vector2 velocity = movement.RigidbodyComponent.velocity;
         velocity.y = 0;
-        rb.velocity = velocity;
-        rb.AddForce(Vector2.up * knockbackImpulse, ForceMode2D.Impulse);
+        movement.RigidbodyComponent.velocity = velocity;
+        movement.RigidbodyComponent.AddForce(Vector2.up * knockbackImpulse, ForceMode2D.Impulse);
     }
 }

@@ -80,6 +80,7 @@ public class Movement : MonoBehaviour // (*) Hacer que el buff a la velocidad y 
     public bool OnFloor { get; private set; }
 
     Rigidbody2D rb;
+    public Rigidbody2D RigidbodyComponent { get => rb; }
 
     Vector2 velocity = Vector2.zero;
     public Vector2 Velocity {  get => velocity; private set { velocity = value; } }

@@ -1040,6 +1040,23 @@ MonoBehaviour:
   HealthUpdate:
     m_PersistentCalls:
       m_Calls: []
+--- !u!1 &645629347 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8629745286496192353, guid: bce098e3f41d8dc43becf05d491fde01, type: 3}
+  m_PrefabInstance: {fileID: 5415699680884743266}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &645629362
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 645629347}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3dda3fabb9a3c5a42af549082c64d1c5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &759061953
 GameObject:
   m_ObjectHideFlags: 0
@@ -2131,6 +2148,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Caracol
       objectReference: {fileID: 0}
+    - target: {fileID: 2013669703042342417, guid: 55067296437f223438c86165bf18b379, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6647609886106486347, guid: 55067296437f223438c86165bf18b379, type: 3}
       propertyPath: listaPuntos.Array.data[0]
       value: 
@@ -2251,7 +2272,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 8629745286496192353, guid: bce098e3f41d8dc43becf05d491fde01, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 645629362}
   m_SourcePrefab: {fileID: 100100000, guid: bce098e3f41d8dc43becf05d491fde01, type: 3}
 --- !u!1001 &5690305957317286224
 PrefabInstance:
@@ -2319,7 +2343,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8243826921247854912, guid: 6dcaa2fdb99d6104cb521bfc0a9f242a, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

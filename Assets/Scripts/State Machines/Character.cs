@@ -18,21 +18,26 @@ public class Character : StateMachine
     protected Vida vida;
     protected Movement movement;
     protected Esperar aturdimiento;
+    protected Animator animator;
+    protected Damage damage;
 
     protected List<IObjectTracker> trackers = new List<IObjectTracker>();
 
     public Movement MovementComponent { get => movement; }
     public Vida VidaComponent { get => vida; }
+    public Animator AnimatorComponent { get => animator; }
+    public Damage DamageComponent { get => damage; }
 
-    protected override void Awake()
+    protected override void Start()
     {
-        base.Awake();
         IObjectTracker[] _trackers = GetComponents<IObjectTracker>();
         trackers = _trackers.ToList();
         movement = GetComponent<Movement>();
         aturdimiento = GetComponent<Esperar>();
+        animator = GetComponentInChildren<Animator>();
+        damage = GetComponentInChildren<Damage>();
         vida = GetComponentInChildren<Vida>();
-        
+        base.Start();
     }
     protected void OnEnable()
     {
@@ -49,6 +54,17 @@ public class Character : StateMachine
         {
             vida.NoHealth -= Dead;
             vida.Damaged -= OnDamageReceived;
+        }
+    }
+
+    protected override void Update()
+    {
+        base.Update();
+        if (animator)
+        {
+            Vector2 speed = movement.RigidbodyComponent.velocity;
+            animator.SetFloat("Speed X", Mathf.Abs(speed.x));
+            animator.SetFloat("Speed Y", speed.y);
         }
     }
 
@@ -81,6 +97,7 @@ public class Character : StateMachine
 
     protected void OnDamageReceived()
     {
+        animator?.SetTrigger("Damage");
         estadoActual?.DañoRecibido();
         if (aturdimiento && tiempoAturdido > 0)
         {
@@ -94,6 +111,8 @@ public class CharacterState : Estado
 {
     protected Movement movement;
     protected Vida vida;
+    protected Animator animator;
+    protected Damage damage;
 
     public override void Entrar(StateMachine personajeActual)
     {
@@ -103,6 +122,8 @@ public class CharacterState : Estado
         {
             movement = character.MovementComponent;
             vida = character.VidaComponent;
+            animator = character.AnimatorComponent;
+            damage = character.DamageComponent;
         }
     }
 
@@ -111,5 +132,7 @@ public class CharacterState : Estado
         base.Salir();
         movement = null;
         vida = null;
+        animator = null;
+        damage = null;
     }
 }
