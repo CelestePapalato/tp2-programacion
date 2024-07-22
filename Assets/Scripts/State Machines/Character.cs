@@ -4,19 +4,25 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class Enemigo : StateMachine
+public class Character : StateMachine
 {
-    public static UnityAction<int> OnDead;
+    [Header("Al recibir daño")]
+    [SerializeField] float tiempoAturdido;
 
+    [Header("Seguimiento de objetos")]
     [SerializeField] Estado estadoAlEncontrarObjetivo;
     [SerializeField] Estado estadoAlPerderObjetivo;
 
-    [Header("Game Manager")]
-    [SerializeField] int puntos;
+    public UnityAction OnDead;
 
     Vida vida;
+    Movement movement;
+    Esperar aturdimiento;
 
     List<IObjectTracker> trackers = new List<IObjectTracker>();
+
+    public Movement MovementComponent { get; }
+
     protected override void Awake()
     {
         base.Awake();
@@ -28,20 +34,21 @@ public class Enemigo : StateMachine
             vida = GetComponentInChildren<Vida>();
         }
     }
-
     private void OnEnable()
     {
         if (vida)
         {
             vida.NoHealth += Dead;
+            vida.Damaged += OnDamageReceived;
         }
     }
 
     private void OnDisable()
     {
-        if(vida)
+        if (vida)
         {
             vida.NoHealth -= Dead;
+            vida.Damaged -= OnDamageReceived;
         }
     }
 
@@ -52,7 +59,8 @@ public class Enemigo : StateMachine
             tracker.Target = newTarget;
         }
 
-        if(newTarget) {
+        if (newTarget)
+        {
             CambiarEstado(estadoAlEncontrarObjetivo);
         }
         else
@@ -63,7 +71,21 @@ public class Enemigo : StateMachine
 
     private void Dead()
     {
-        OnDead?.Invoke(puntos);
-        Destroy(gameObject);
+        if (movement)
+        {
+            movement.Direction = Vector2.zero;
+        }
+        OnDead?.Invoke();
+        this.enabled = false;
+    }
+
+    private void OnDamageReceived()
+    {
+        estadoActual?.DañoRecibido();
+        if (aturdimiento && tiempoAturdido > 0)
+        {
+            aturdimiento.Tiempo = tiempoAturdido;
+            CambiarEstado(aturdimiento);
+        }
     }
 }
