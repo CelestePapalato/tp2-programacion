@@ -22,6 +22,7 @@ public class Character : StateMachine
     protected List<IObjectTracker> trackers = new List<IObjectTracker>();
 
     public Movement MovementComponent { get => movement; }
+    public Vida VidaComponent { get => vida; }
 
     protected override void Awake()
     {
@@ -86,5 +87,29 @@ public class Character : StateMachine
             aturdimiento.Tiempo = tiempoAturdido;
             CambiarEstado(aturdimiento);
         }
+    }
+}
+
+public class CharacterState : Estado
+{
+    protected Movement movement;
+    protected Vida vida;
+
+    public override void Entrar(StateMachine personajeActual)
+    {
+        base.Entrar(personajeActual);
+        Character character = personaje as Character;
+        if (character != null)
+        {
+            movement = character.MovementComponent;
+            vida = character.VidaComponent;
+        }
+    }
+
+    public override void Salir()
+    {
+        base.Salir();
+        movement = null;
+        vida = null;
     }
 }

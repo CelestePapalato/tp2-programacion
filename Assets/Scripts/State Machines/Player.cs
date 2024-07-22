@@ -57,7 +57,6 @@ public class Player : Character, IBuffable // Mover los buffs de movimiento a Mo
         {
             return;
         }
-        Debug.Log(multiplier + " " + time);
         StartCoroutine(JumpPowerUpEnabler(multiplier, time));
     }
 

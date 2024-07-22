@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 
-public class Perseguir : Estado, IObjectTracker
+public class Perseguir : CharacterState, IObjectTracker
 {
     [Header("Transform")]
     [SerializeField] bool UseTransform = false;
@@ -14,9 +14,7 @@ public class Perseguir : Estado, IObjectTracker
     [SerializeField] Estado nextState;
     [SerializeField] float distanceForNextState;
 
-    private Rigidbody2D rb;
     private Transform target;
-    private Movement movement;
     public Transform Target
     {
         get => target;
@@ -28,12 +26,6 @@ public class Perseguir : Estado, IObjectTracker
                 personaje.CambiarEstado(null);
             }
         }
-    }
-
-    private void Awake()
-    {
-        rb = GetComponent<Rigidbody2D>();
-        movement = GetComponent<Movement>();
     }
 
     public override void Entrar(StateMachine personajeActual)
@@ -62,7 +54,7 @@ public class Perseguir : Estado, IObjectTracker
         {
             direction.y = 0;
         }
-        if (UseTransform || !rb || !movement)
+        if (UseTransform || !movement)
         {
             transform.Translate(direction.normalized * speed * Time.fixedDeltaTime);
         }

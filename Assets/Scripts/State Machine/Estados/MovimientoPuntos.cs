@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MovimientoPuntos : Estado
+public class MovimientoPuntos : CharacterState
 {
     [Tooltip("Indica si el objeto se moverá por Rigidbody o Transform.Translate")]
     [SerializeField] bool useRigidbody;
@@ -20,16 +20,10 @@ public class MovimientoPuntos : Estado
     List<Vector2> puntos = new List<Vector2>();
     int indicePuntoActual;
 
-    Movement movement;
     FlipSprite flipSprite;
 
     private void Awake()
     {
-        if (useRigidbody)
-        {
-            useRigidbody = TryGetComponent<Movement>(out movement);
-        }
-
         foreach (Transform t in listaPuntos)
         {
             puntos.Add(t.position);
@@ -47,7 +41,7 @@ public class MovimientoPuntos : Estado
     public override void ActualizarFixed()
     {
         Vector2 direccion = siguientePunto();
-        if (!useRigidbody)
+        if (!useRigidbody || !movement)
         {
             direccion = direccion.normalized * velocidad * Time.fixedDeltaTime;
             transform.Translate(direccion);

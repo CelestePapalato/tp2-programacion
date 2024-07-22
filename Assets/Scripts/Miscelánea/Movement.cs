@@ -10,6 +10,7 @@ public class ExtendedMaths
     }
 }
 
+[RequireComponent(typeof(Rigidbody2D))]
 public class Movement : MonoBehaviour // (*) Hacer que el buff a la velocidad y salto sea un multiplicador en vez de una reasignación
 {
     [SerializeField] float maxSpeed;

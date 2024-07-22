@@ -2,26 +2,24 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Esperar : Estado
+public class Esperar : CharacterState
 {
     [SerializeField] float tiempo;
     [Tooltip("Opcional. Si Personaje recibe un Estado nulo, simplemente activa su primer estado.")]
     [SerializeField] Estado siguienteEstado;
 
-    Movement movement;
-
     public float Tiempo {  get { return tiempo; } set {  tiempo = value; } }
-
-    private void Awake()
-    {
-        movement = GetComponent<Movement>();
-    }
 
     public override void Entrar(StateMachine personajeActual)
     {
         base.Entrar(personajeActual);
         StopAllCoroutines();
         StartCoroutine(EsperarYCambiarEstado());
+    }
+
+    public override void Salir()
+    {
+        base.Salir();
     }
 
     IEnumerator EsperarYCambiarEstado()
