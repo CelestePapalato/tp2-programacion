@@ -21,6 +21,7 @@ public class MovimientoPuntos : Estado
     int indicePuntoActual;
 
     Movement movement;
+    FlipSprite flipSprite;
 
     private void Awake()
     {
@@ -33,6 +34,8 @@ public class MovimientoPuntos : Estado
         {
             puntos.Add(t.position);
         }
+
+        flipSprite = GetComponentInChildren<FlipSprite>();
     }
 
     public override void Entrar(StateMachine personajeActual)
@@ -46,7 +49,9 @@ public class MovimientoPuntos : Estado
         Vector2 direccion = siguientePunto();
         if (!useRigidbody)
         {
-            transform.Translate(direccion.normalized * velocidad * Time.fixedDeltaTime);
+            direccion = direccion.normalized * velocidad * Time.fixedDeltaTime;
+            transform.Translate(direccion);
+            flipSprite?.UpdateSprite(direccion);
             return;
         }
         movement.Direction = direccion.normalized;

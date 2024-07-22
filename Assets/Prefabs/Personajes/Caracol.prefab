@@ -109,6 +109,7 @@ GameObject:
   - component: {fileID: 677747952546421308}
   - component: {fileID: 6647609886106486347}
   - component: {fileID: 4454492719426396923}
+  - component: {fileID: 86604272083072797}
   m_Layer: 9
   m_Name: Caracol
   m_TagString: Untagged
@@ -244,7 +245,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7560806925714b74b8a346e3a012fd73, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxSpeed: 1
+  maxSpeed: 0.3
   acceleration: 5
   decceleration: 0.626
   jumpForce: 0
@@ -258,6 +259,18 @@ MonoBehaviour:
   currentAcceleration: 0
   currentDecceleration: 0
   currentJumpForce: 0
+--- !u!114 &86604272083072797
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2013669703042342417}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3dda3fabb9a3c5a42af549082c64d1c5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &6650496244608250924
 GameObject:
   m_ObjectHideFlags: 0

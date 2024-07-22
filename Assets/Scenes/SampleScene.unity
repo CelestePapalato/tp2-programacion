@@ -2414,6 +2414,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Caracol
       objectReference: {fileID: 0}
+    - target: {fileID: 2112104156859794485, guid: 55067296437f223438c86165bf18b379, type: 3}
+      propertyPath: m_FlipX
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2112104156859794485, guid: 55067296437f223438c86165bf18b379, type: 3}
+      propertyPath: m_FlipY
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6647609886106486347, guid: 55067296437f223438c86165bf18b379, type: 3}
       propertyPath: listaPuntos.Array.data[0]
       value: 
