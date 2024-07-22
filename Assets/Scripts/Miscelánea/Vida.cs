@@ -22,14 +22,14 @@ public class Vida : MonoBehaviour, IDamageable, IHittable
         health = maxHealth;
         col = GetComponent<Collider2D>();
         rb = GetComponentInParent<Rigidbody2D>();
-        HealthUpdate.Invoke(health, maxHealth);
+        HealthUpdate?.Invoke(health, maxHealth);
     }
 
     public void Heal(int healPoints)
     {
         health = Mathf.Clamp(health + healPoints, 0, maxHealth);
         if(Healed != null) { Healed(); }
-        HealthUpdate.Invoke(health, maxHealth);
+        HealthUpdate?.Invoke(health, maxHealth);
     }
 
     public void Damage(IDamageDealer damageDealer)
@@ -39,8 +39,8 @@ public class Vida : MonoBehaviour, IDamageable, IHittable
             return;
         }
         health = Mathf.Clamp(health - damageDealer.DamagePoints, 0, maxHealth);
-        if(Damaged != null) { Damaged(); }
-        HealthUpdate.Invoke(health, maxHealth);
+        Damaged?.Invoke();
+        HealthUpdate?.Invoke(health, maxHealth);
         StartCoroutine(invincibilityEnabler());
         if (health <= 0 && NoHealth != null)
         {
@@ -53,7 +53,7 @@ public class Vida : MonoBehaviour, IDamageable, IHittable
         Vector2 position = transform.position;
         Vector2 impulseVector = position - damageDealer.Position;
         impulseVector.Normalize();
-        rb.AddForce(impulseVector * damageDealer.Impulse, ForceMode2D.Impulse);
+        rb?.AddForce(impulseVector * damageDealer.Impulse, ForceMode2D.Impulse);
     }
 
     IEnumerator invincibilityEnabler()

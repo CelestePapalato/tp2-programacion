@@ -28,7 +28,7 @@ public class Character : StateMachine
     public Animator AnimatorComponent { get => animator; }
     public Damage DamageComponent { get => damage; }
 
-    protected override void Start()
+    protected override void Awake()
     {
         IObjectTracker[] _trackers = GetComponents<IObjectTracker>();
         trackers = _trackers.ToList();
@@ -37,7 +37,7 @@ public class Character : StateMachine
         animator = GetComponentInChildren<Animator>();
         damage = GetComponentInChildren<Damage>();
         vida = GetComponentInChildren<Vida>();
-        base.Start();
+        base.Awake();
     }
     protected void OnEnable()
     {
@@ -60,7 +60,7 @@ public class Character : StateMachine
     protected override void Update()
     {
         base.Update();
-        if (animator)
+        if (animator && movement)
         {
             Vector2 speed = movement.RigidbodyComponent.velocity;
             animator.SetFloat("Speed X", Mathf.Abs(speed.x));

@@ -11,11 +11,11 @@ public class Player : Character, IBuffable // Mover los buffs de movimiento a Mo
 
     public static new UnityAction OnDead;
 
-    protected override void Start()
+    protected override void Awake()
     {
         controller = GetComponent<PlayerController>();
         primerEstado = controller;
-        base.Start();
+        base.Awake();
     }
     protected override void Dead()
     {
