@@ -5,6 +5,12 @@ using UnityEngine;
 
 public class Perseguir : Estado, IObjectTracker
 {
+    [Header("Transform")]
+    [SerializeField] bool UseTransform = false;
+    [SerializeField] float speed = 1f;
+    [Header("Direction")]
+    [SerializeField] bool UseYAxis = true;
+    [Header("State Change")]
     [SerializeField] Estado nextState;
     [SerializeField] float distanceForNextState;
 
@@ -41,19 +47,29 @@ public class Perseguir : Estado, IObjectTracker
 
     public override void ActualizarFixed()
     {
-        if (!target || !rb)
+        if (!target)
         {
             return;
         }
         Vector2 direction = target.position - transform.position;
         float distance = direction.magnitude;
-        if(distance <= distanceForNextState)
+        if (distance <= distanceForNextState && nextState)
         {
             personaje.CambiarEstado(nextState);
             return;
         }
-        direction.y = 0;
-        movement.Direction = direction;
+        if (!UseYAxis)
+        {
+            direction.y = 0;
+        }
+        if (UseTransform || !rb || !movement)
+        {
+            transform.Translate(direction.normalized * speed * Time.fixedDeltaTime);
+        }
+        else
+        {
+            movement.Direction = direction;
+        }
     }
 
     public override void DañoRecibido()
