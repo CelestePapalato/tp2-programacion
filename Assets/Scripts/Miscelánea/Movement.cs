@@ -101,7 +101,10 @@ public class Movement : MonoBehaviour // (*) Hacer que el buff a la velocidad y 
         rb = GetComponent<Rigidbody2D>();
         col = GetComponent<CapsuleCollider2D>();
 
-        colliderInferior = col.size.y * 0.5f - col.size.x;
+        if (col)
+        {
+            colliderInferior = col.size.y * 0.5f - col.size.x;
+        }
     }
 
     private void FixedUpdate()
@@ -112,7 +115,12 @@ public class Movement : MonoBehaviour // (*) Hacer que el buff a la velocidad y 
 
     public void IsOnFloor()
     {
-        //OnFloor = Physics2D.Raycast(transform.position, Vector2.down, raycastDistance, floorLayer);
+        if (!col)
+        {
+            OnFloor = Physics2D.Raycast(transform.position, Vector2.down, raycastDistance, floorLayer);
+            return;
+        }
+        
         OnFloor = false;
 
         foreach (ContactPoint2D[] contacts in puntosDeContacto.Values) // obtenemos los puntos de contacto

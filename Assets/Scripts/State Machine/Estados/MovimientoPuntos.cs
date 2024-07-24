@@ -53,6 +53,10 @@ public class MovimientoPuntos : CharacterState
 
     private Vector2 siguientePunto()
     {
+        if(puntos.Count == 0)
+        {
+            return Vector2.zero;
+        }
         Vector2 posicion = transform.position;
         Vector2 objetivo = puntos[indicePuntoActual];
         if (!useYAxis)
