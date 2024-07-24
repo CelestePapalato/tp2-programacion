@@ -213,6 +213,9 @@ MonoBehaviour:
   tiempoAturdido: 0
   estadoAlEncontrarObjetivo: {fileID: 0}
   estadoAlPerderObjetivo: {fileID: 6647609886106486347}
+  OnDeadEvent:
+    m_PersistentCalls:
+      m_Calls: []
   puntos: 15
 --- !u!114 &6647609886106486347
 MonoBehaviour:
@@ -250,6 +253,7 @@ MonoBehaviour:
   acceleration: 5
   decceleration: 0.626
   jumpForce: 0
+  inclinacionMaxima: 45
   floorLayer:
     serializedVersion: 2
     m_Bits: 0
@@ -334,7 +338,7 @@ CapsuleCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: -0.008693721, y: -0.21301892}

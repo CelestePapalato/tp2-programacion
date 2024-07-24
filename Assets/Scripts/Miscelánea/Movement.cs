@@ -16,7 +16,10 @@ public class Movement : MonoBehaviour // (*) Hacer que el buff a la velocidad y 
     [SerializeField] float maxSpeed;
     [SerializeField] float acceleration;
     [SerializeField] float decceleration;
-    [SerializeField] float jumpForce;
+    [SerializeField] float jumpForce; 
+    [SerializeField]
+    [Tooltip("Inclinación máxima del terreno para considerar que el objeto está en el suelo")]
+    [Range(0f, 70f)] float inclinacionMaxima = 45f;
     [SerializeField] LayerMask floorLayer;
     [SerializeField][Range(0, 1f)] float raycastDistance;
 
@@ -85,23 +88,43 @@ public class Movement : MonoBehaviour // (*) Hacer que el buff a la velocidad y 
     Vector2 velocity = Vector2.zero;
     public Vector2 Velocity {  get => velocity; private set { velocity = value; } }
 
+    // Colisión con el suelo
+
+    CapsuleCollider2D col;
+
+    float colliderInferior;
+
+    Dictionary<int, ContactPoint2D[]> puntosDeContacto = new Dictionary<int, ContactPoint2D[]>();
+
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
+        col = GetComponent<CapsuleCollider2D>();
+
+        colliderInferior = col.size.y * 0.5f - col.size.x;
     }
 
     private void FixedUpdate()
     {
-        isOnFloor();
-        move();
+        IsOnFloor();
+        Move();
     }
 
-    public void isOnFloor()
+    public void IsOnFloor()
     {
-        OnFloor = Physics2D.Raycast(transform.position, Vector2.down, raycastDistance, floorLayer);
+        //OnFloor = Physics2D.Raycast(transform.position, Vector2.down, raycastDistance, floorLayer);
+        OnFloor = false;
+
+        foreach (ContactPoint2D[] contacts in puntosDeContacto.Values) // obtenemos los puntos de contacto
+        {
+            for (int i = 0; i < contacts.Length; i++)
+            {
+                OnFloor = OnFloor || contacts[i].normal.y >= Mathf.Cos(inclinacionMaxima * Mathf.Deg2Rad);
+            }
+        }
     }
 
-    private void move()
+    private void Move()
     {
         Vector2 new_velocity = rb.velocity;
         float accel = Acceleration * Time.fixedDeltaTime;
@@ -125,5 +148,20 @@ public class Movement : MonoBehaviour // (*) Hacer que el buff a la velocidad y 
         velocity.y = 0;
         rb.velocity = velocity;
         rb.AddForce(JumpForce * Vector3.up, ForceMode2D.Impulse);
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        puntosDeContacto.Add(collision.gameObject.GetInstanceID(), collision.contacts);
+    }
+
+    private void OnCollisionStay2D(Collision2D collision)
+    {
+        puntosDeContacto[collision.gameObject.GetInstanceID()] = collision.contacts;
+    }
+
+    private void OnCollisionExit2D(Collision2D collision)
+    {
+        puntosDeContacto.Remove(collision.gameObject.GetInstanceID());
     }
 }

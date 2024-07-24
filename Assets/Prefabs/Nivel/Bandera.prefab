@@ -116,7 +116,6 @@ GameObject:
   - component: {fileID: 2237549232311607872}
   - component: {fileID: 828321607684184434}
   - component: {fileID: 7262661772442854684}
-  - component: {fileID: 7174492504339759010}
   m_Layer: 0
   m_Name: Bandera
   m_TagString: Untagged
@@ -213,18 +212,3 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!111 &7174492504339759010
-Animation:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2975389670189454781}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Animation: {fileID: 7400000, guid: 04a6f237a9d339e4a9831deb7b1092a8, type: 2}
-  m_Animations: []
-  m_WrapMode: 2
-  m_PlayAutomatically: 1
-  m_AnimatePhysics: 0
-  m_CullingType: 0
