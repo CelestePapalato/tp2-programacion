@@ -91,7 +91,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damagePoints: 1
-  impulse: 10
+  impulse: 5
 --- !u!1 &2549624371785134484
 GameObject:
   m_ObjectHideFlags: 0
@@ -316,6 +316,9 @@ MonoBehaviour:
   tiempoAturdido: 0
   estadoAlEncontrarObjetivo: {fileID: 2986600800750182440}
   estadoAlPerderObjetivo: {fileID: 5246991174774056814}
+  OnDeadEvent:
+    m_PersistentCalls:
+      m_Calls: []
   puntos: 15
 --- !u!114 &5246991174774056814
 MonoBehaviour:
@@ -370,6 +373,7 @@ MonoBehaviour:
   acceleration: 5
   decceleration: 0.626
   jumpForce: 0
+  inclinacionMaxima: 45
   floorLayer:
     serializedVersion: 2
     m_Bits: 0
@@ -472,9 +476,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 1
   invincibilityTime: 0
-  HealthUpdate:
-    m_PersistentCalls:
-      m_Calls: []
 --- !u!1001 &196396268081921712
 PrefabInstance:
   m_ObjectHideFlags: 0

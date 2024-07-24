@@ -92,9 +92,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 1
   invincibilityTime: 0
-  HealthUpdate:
-    m_PersistentCalls:
-      m_Calls: []
 --- !u!1 &2013669703042342417
 GameObject:
   m_ObjectHideFlags: 0
@@ -357,7 +354,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damagePoints: 1
-  impulse: 10
+  impulse: 3
 --- !u!1001 &4814500019135775759
 PrefabInstance:
   m_ObjectHideFlags: 0

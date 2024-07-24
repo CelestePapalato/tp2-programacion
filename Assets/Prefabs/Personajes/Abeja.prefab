@@ -81,7 +81,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damagePoints: 1
-  impulse: 10
+  impulse: 2
 --- !u!1 &999281701143070190
 GameObject:
   m_ObjectHideFlags: 0
@@ -232,6 +232,9 @@ MonoBehaviour:
   tiempoAturdido: 0
   estadoAlEncontrarObjetivo: {fileID: 6048331595892994163}
   estadoAlPerderObjetivo: {fileID: 454266571937097681}
+  OnDeadEvent:
+    m_PersistentCalls:
+      m_Calls: []
   puntos: 15
 --- !u!114 &454266571937097681
 MonoBehaviour:
@@ -364,9 +367,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 3
   invincibilityTime: 0.3
-  HealthUpdate:
-    m_PersistentCalls:
-      m_Calls: []
 --- !u!1001 &9192583511047300182
 PrefabInstance:
   m_ObjectHideFlags: 0
