@@ -17,6 +17,7 @@ public class Player : Character, IBuffable // Mover los buffs de movimiento a Mo
         primerEstado = controller;
         base.Awake();
     }
+
     protected override void Dead()
     {
         base.Dead();
@@ -33,12 +34,12 @@ public class Player : Character, IBuffable // Mover los buffs de movimiento a Mo
 
     public void SpeedPowerUp(float multiplier, float time)
     {
-        StopCoroutine(nameof(SpeedPowerUpEnabler));
         multiplier = Mathf.Max(multiplier, 1f);
-        if(multiplier == 1)
+        if (multiplier == 1)
         {
             return;
         }
+        StopCoroutine(nameof(SpeedPowerUpEnabler));
         StartCoroutine(SpeedPowerUpEnabler(multiplier, time));
     }
 
@@ -51,12 +52,12 @@ public class Player : Character, IBuffable // Mover los buffs de movimiento a Mo
 
     public void JumpPowerUp(float multiplier, float time)
     {
-        StopCoroutine(nameof(JumpPowerUp));
         multiplier = Mathf.Max(multiplier, 1f);
         if (multiplier == 1)
         {
             return;
         }
+        StopCoroutine(nameof(JumpPowerUp));
         StartCoroutine(JumpPowerUpEnabler(multiplier, time));
     }
 

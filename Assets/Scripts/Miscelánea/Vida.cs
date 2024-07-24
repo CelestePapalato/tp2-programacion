@@ -22,6 +22,10 @@ public class Vida : MonoBehaviour, IDamageable, IHittable
         health = maxHealth;
         col = GetComponent<Collider2D>();
         rb = GetComponentInParent<Rigidbody2D>();
+    }
+
+    private void Start()
+    {
         OnHealthUpdate?.Invoke(health, maxHealth);
     }
 
