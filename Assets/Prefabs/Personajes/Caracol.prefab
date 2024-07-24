@@ -91,7 +91,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 1
-  invincibilityTime: 0
+  invincibilityTime: 0.6
 --- !u!1 &2013669703042342417
 GameObject:
   m_ObjectHideFlags: 0
@@ -213,7 +213,7 @@ MonoBehaviour:
   OnDeadEvent:
     m_PersistentCalls:
       m_Calls: []
-  puntos: 15
+  puntos: 5
 --- !u!114 &6647609886106486347
 MonoBehaviour:
   m_ObjectHideFlags: 0

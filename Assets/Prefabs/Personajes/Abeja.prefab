@@ -235,7 +235,7 @@ MonoBehaviour:
   OnDeadEvent:
     m_PersistentCalls:
       m_Calls: []
-  puntos: 15
+  puntos: 12
 --- !u!114 &454266571937097681
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -365,8 +365,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 88292ceaa51d5d64fb275c0ad778b9ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 3
-  invincibilityTime: 0.3
+  maxHealth: 2
+  invincibilityTime: 0.6
 --- !u!1001 &9192583511047300182
 PrefabInstance:
   m_ObjectHideFlags: 0

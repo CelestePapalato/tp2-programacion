@@ -156,7 +156,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 4
-  invincibilityTime: 0.5
+  invincibilityTime: 1
 --- !u!1 &1651592049545565284
 GameObject:
   m_ObjectHideFlags: 0

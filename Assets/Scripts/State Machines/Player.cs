@@ -39,14 +39,13 @@ public class Player : Character, IBuffable // Mover los buffs de movimiento a Mo
         {
             return;
         }
-        StopCoroutine(nameof(SpeedPowerUpEnabler));
-        StartCoroutine(SpeedPowerUpEnabler(multiplier, time));
+        movement.SpeedMultiplier = multiplier;
+        CancelInvoke(nameof(SpeedPowerUpDisabler));
+        StartCoroutine(nameof(SpeedPowerUpDisabler), time);
     }
 
-    IEnumerator SpeedPowerUpEnabler(float multiplier, float time)
+    private void SpeedPowerUpDisabler()
     {
-        movement.SpeedMultiplier = multiplier;
-        yield return new WaitForSeconds(time);
         movement.SpeedMultiplier = 1;
     }
 
@@ -57,14 +56,13 @@ public class Player : Character, IBuffable // Mover los buffs de movimiento a Mo
         {
             return;
         }
-        StopCoroutine(nameof(JumpPowerUp));
-        StartCoroutine(JumpPowerUpEnabler(multiplier, time));
+        movement.JumpMultiplier = multiplier;
+        CancelInvoke(nameof(JumpPowerUpDisabler));
+        Invoke(nameof(JumpPowerUpDisabler), time);
     }
 
-    IEnumerator JumpPowerUpEnabler(float multiplier, float time)
+    private void JumpPowerUpDisabler()
     {
-        movement.JumpMultiplier = multiplier;
-        yield return new WaitForSeconds(time);
         movement.JumpMultiplier = 1;
     }
 }

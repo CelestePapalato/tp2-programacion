@@ -172,11 +172,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 88292ceaa51d5d64fb275c0ad778b9ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 3
+  maxHealth: 10
   invincibilityTime: 0.6
-  HealthUpdate:
-    m_PersistentCalls:
-      m_Calls: []
 --- !u!1 &2415934706060080149
 GameObject:
   m_ObjectHideFlags: 0
@@ -394,7 +391,10 @@ MonoBehaviour:
   tiempoAturdido: 0
   estadoAlEncontrarObjetivo: {fileID: 6963377136041470663}
   estadoAlPerderObjetivo: {fileID: 7888544619940900507}
-  puntos: 15
+  OnDeadEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  puntos: 50
 --- !u!114 &7888544619940900507
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -459,8 +459,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   stopMovement: 1
-  projectileQuantity: 3
-  timeBetweenShots: 1
+  projectileQuantity: 7
+  timeBetweenShots: 0.5
   projectilePrefab: {fileID: 5116244938838054073, guid: a8b8c31ea05ddd94980e09abcab9be88, type: 3}
   spawnPoint: {fileID: 3461545668037909305}
   nextState: {fileID: 6963377136041470663}
@@ -480,6 +480,7 @@ MonoBehaviour:
   acceleration: 5
   decceleration: 0.626
   jumpForce: 0
+  inclinacionMaxima: 45
   floorLayer:
     serializedVersion: 2
     m_Bits: 0
