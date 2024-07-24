@@ -15,4 +15,4 @@ MonoBehaviour:
   cura: 0
   multiplicadorVelocidadMaxima: 0
   multiplicadorSalto: 1.5
-  tiempoPowerUp: 10
+  tiempoPowerUp: 5
