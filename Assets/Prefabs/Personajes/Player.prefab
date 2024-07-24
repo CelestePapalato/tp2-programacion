@@ -157,21 +157,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 4
   invincibilityTime: 0.5
-  HealthUpdate:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 774109131084410789}
-        m_TargetAssemblyTypeName: Healthbar, Assembly-CSharp
-        m_MethodName: UpdateSlider
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
 --- !u!1 &1651592049545565284
 GameObject:
   m_ObjectHideFlags: 0
@@ -402,6 +387,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f66c81cd93b2514e8bc8b1e49a5bcf3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  vidaComponent: {fileID: 9171334401753466239}
 --- !u!1 &7464559656420221960
 GameObject:
   m_ObjectHideFlags: 0

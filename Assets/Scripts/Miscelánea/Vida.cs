@@ -7,10 +7,10 @@ public class Vida : MonoBehaviour, IDamageable, IHittable
 {
     [SerializeField] int maxHealth;
     [SerializeField] float invincibilityTime;
-    public UnityEvent<int, int> HealthUpdate;
-    public UnityAction NoHealth;
-    public UnityAction Damaged;
-    public UnityAction Healed;
+    public UnityAction<int, int> OnHealthUpdate;
+    public UnityAction OnNoHealth;
+    public UnityAction OnDamaged;
+    public UnityAction OnHealed;
 
     int health;
     bool invincibility = false;
@@ -22,14 +22,14 @@ public class Vida : MonoBehaviour, IDamageable, IHittable
         health = maxHealth;
         col = GetComponent<Collider2D>();
         rb = GetComponentInParent<Rigidbody2D>();
-        HealthUpdate?.Invoke(health, maxHealth);
+        OnHealthUpdate?.Invoke(health, maxHealth);
     }
 
     public void Heal(int healPoints)
     {
         health = Mathf.Clamp(health + healPoints, 0, maxHealth);
-        if(Healed != null) { Healed(); }
-        HealthUpdate?.Invoke(health, maxHealth);
+        if(OnHealed != null) { OnHealed(); }
+        OnHealthUpdate?.Invoke(health, maxHealth);
     }
 
     public void Damage(IDamageDealer damageDealer)
@@ -39,12 +39,12 @@ public class Vida : MonoBehaviour, IDamageable, IHittable
             return;
         }
         health = Mathf.Clamp(health - damageDealer.DamagePoints, 0, maxHealth);
-        Damaged?.Invoke();
-        HealthUpdate?.Invoke(health, maxHealth);
+        OnDamaged?.Invoke();
+        OnHealthUpdate?.Invoke(health, maxHealth);
         StartCoroutine(invincibilityEnabler());
-        if (health <= 0 && NoHealth != null)
+        if (health <= 0 && OnNoHealth != null)
         {
-            NoHealth();
+            OnNoHealth();
         }
     }
 

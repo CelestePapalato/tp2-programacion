@@ -43,8 +43,8 @@ public class Character : StateMachine
     {
         if (vida)
         {
-            vida.NoHealth += Dead;
-            vida.Damaged += OnDamageReceived;
+            vida.OnNoHealth += Dead;
+            vida.OnDamaged += OnDamageReceived;
         }
     }
 
@@ -52,8 +52,8 @@ public class Character : StateMachine
     {
         if (vida)
         {
-            vida.NoHealth -= Dead;
-            vida.Damaged -= OnDamageReceived;
+            vida.OnNoHealth -= Dead;
+            vida.OnDamaged -= OnDamageReceived;
         }
     }
 
