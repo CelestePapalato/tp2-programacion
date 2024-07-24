@@ -252,9 +252,7 @@ MonoBehaviour:
   useYAxis: 1
   velocidad: 0.7
   distanciaParaCambiarPunto: 0.15
-  listaPuntos:
-  - {fileID: 0}
-  - {fileID: 0}
+  listaPuntos: []
   siguienteEstado: {fileID: 0}
 --- !u!114 &6048331595892994163
 MonoBehaviour:
@@ -273,6 +271,7 @@ MonoBehaviour:
   UseYAxis: 1
   nextState: {fileID: 0}
   distanceForNextState: 0
+  nextStateWaitTime: 4
 --- !u!114 &6521993496735584403
 MonoBehaviour:
   m_ObjectHideFlags: 0

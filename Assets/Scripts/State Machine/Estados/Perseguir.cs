@@ -13,6 +13,9 @@ public class Perseguir : CharacterState, IObjectTracker
     [Header("State Change")]
     [SerializeField] Estado nextState;
     [SerializeField] float distanceForNextState;
+    [SerializeField] float nextStateWaitTime = 4f;
+
+    bool changeState = false;
 
     private Transform target;
     public Transform Target
@@ -35,6 +38,13 @@ public class Perseguir : CharacterState, IObjectTracker
         {
             personaje.CambiarEstado(null);
         }
+        StartCoroutine(EnableStateChange());
+    }
+
+    public override void Salir()
+    {
+        base.Salir();
+        StopCoroutine(nameof(EnableStateChange));
     }
 
     public override void ActualizarFixed()
@@ -45,7 +55,7 @@ public class Perseguir : CharacterState, IObjectTracker
         }
         Vector2 direction = target.position - transform.position;
         float distance = direction.magnitude;
-        if (distance <= distanceForNextState && nextState)
+        if (distance <= distanceForNextState && nextState && changeState)
         {
             personaje.CambiarEstado(nextState);
             return;
@@ -69,4 +79,9 @@ public class Perseguir : CharacterState, IObjectTracker
         base.DañoRecibido();
     }
 
+    IEnumerator EnableStateChange()
+    {
+        yield return new WaitForSeconds(nextStateWaitTime);
+        changeState = true;
+    }
 }

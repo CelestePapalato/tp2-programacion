@@ -26,7 +26,7 @@ public class MovimientoPuntos : CharacterState
     {
         foreach (Transform t in listaPuntos)
         {
-            puntos.Add(t.position);
+            if (t != null) { puntos.Add(t.position); }
         }
 
         flipSprite = GetComponentInChildren<FlipSprite>();
@@ -40,7 +40,7 @@ public class MovimientoPuntos : CharacterState
 
     public override void ActualizarFixed()
     {
-        Vector2 direccion = siguientePunto();
+        Vector2 direccion = SiguientePunto();
         if (!useRigidbody || !movement)
         {
             direccion = direccion.normalized * velocidad * Time.fixedDeltaTime;
@@ -51,7 +51,7 @@ public class MovimientoPuntos : CharacterState
         movement.Direction = direccion.normalized;
     }
 
-    private Vector2 siguientePunto()
+    private Vector2 SiguientePunto()
     {
         if(puntos.Count == 0)
         {

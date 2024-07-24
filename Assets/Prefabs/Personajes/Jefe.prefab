@@ -241,7 +241,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 8.59
+  m_Radius: 15
 --- !u!114 &6027286740512005505
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -269,6 +269,37 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!1 &4805409729218652859
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6907215519010696379}
+  m_Layer: 9
+  m_Name: Projectile Spawn Point
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6907215519010696379
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4805409729218652859}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.442, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3461545668037909305}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &8243826921247854912
 GameObject:
   m_ObjectHideFlags: 0
@@ -311,6 +342,7 @@ Transform:
   - {fileID: 3097357501262968128}
   - {fileID: 7731534088730882602}
   - {fileID: 4171254745403784386}
+  - {fileID: 6907215519010696379}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!70 &2322857690204858965
@@ -410,10 +442,9 @@ MonoBehaviour:
   useRigidbody: 1
   useYAxis: 0
   velocidad: 0.7
-  distanciaParaCambiarPunto: 0.15
+  distanciaParaCambiarPunto: 4
   listaPuntos:
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 6907215519010696379}
   siguienteEstado: {fileID: 0}
 --- !u!114 &6963377136041470663
 MonoBehaviour:
@@ -428,10 +459,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   UseTransform: 0
-  speed: 1
+  speed: 5
   UseYAxis: 1
   nextState: {fileID: 3954539122642778512}
-  distanceForNextState: 2
+  distanceForNextState: 6
+  nextStateWaitTime: 4
 --- !u!114 &3954539122642778512
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -444,7 +476,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4b3b0301fd4fc9f4ea6133fb081017e4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tiempo: 1.5
+  tiempo: 2
   siguienteEstado: {fileID: 3512884668845638451}
 --- !u!114 &3512884668845638451
 MonoBehaviour:
@@ -459,10 +491,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   stopMovement: 1
-  projectileQuantity: 7
-  timeBetweenShots: 0.5
+  projectileQuantity: 25
+  timeBetweenShots: 0.2
   projectilePrefab: {fileID: 5116244938838054073, guid: a8b8c31ea05ddd94980e09abcab9be88, type: 3}
-  spawnPoint: {fileID: 3461545668037909305}
+  spawnPoint: {fileID: 6907215519010696379}
   nextState: {fileID: 6963377136041470663}
 --- !u!114 &4281693909814248040
 MonoBehaviour:
@@ -476,9 +508,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7560806925714b74b8a346e3a012fd73, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxSpeed: 1
+  maxSpeed: 5
   acceleration: 5
-  decceleration: 0.626
+  decceleration: 3
   jumpForce: 0
   inclinacionMaxima: 45
   floorLayer:
