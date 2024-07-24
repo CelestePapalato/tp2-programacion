@@ -269,7 +269,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   UseTransform: 1
-  speed: 1
+  speed: 1.5
   UseYAxis: 1
   nextState: {fileID: 0}
   distanceForNextState: 0
