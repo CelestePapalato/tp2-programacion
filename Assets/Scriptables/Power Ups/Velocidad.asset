@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: Velocidad
   m_EditorClassIdentifier: 
   cura: 0
-  multiplicadorVelocidadMaxima: 1.3
+  multiplicadorVelocidadMaxima: 1.5
   multiplicadorSalto: 0
   tiempoPowerUp: 5

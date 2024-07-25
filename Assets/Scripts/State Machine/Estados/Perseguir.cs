@@ -81,6 +81,7 @@ public class Perseguir : CharacterState, IObjectTracker
 
     IEnumerator EnableStateChange()
     {
+        changeState = false;
         yield return new WaitForSeconds(nextStateWaitTime);
         changeState = true;
     }

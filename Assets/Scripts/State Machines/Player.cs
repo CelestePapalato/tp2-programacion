@@ -41,7 +41,7 @@ public class Player : Character, IBuffable // Mover los buffs de movimiento a Mo
         }
         movement.SpeedMultiplier = multiplier;
         CancelInvoke(nameof(SpeedPowerUpDisabler));
-        StartCoroutine(nameof(SpeedPowerUpDisabler), time);
+        Invoke(nameof(SpeedPowerUpDisabler), time);
     }
 
     private void SpeedPowerUpDisabler()
