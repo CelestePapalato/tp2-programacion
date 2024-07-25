@@ -714,7 +714,7 @@ MonoBehaviour:
   acceleration: 15
   decceleration: 15
   jumpForce: 6
-  inclinacionMaxima: 45
+  inclinacionMaxima: 85
   floorLayer:
     serializedVersion: 2
     m_Bits: 64

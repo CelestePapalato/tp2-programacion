@@ -19,7 +19,7 @@ public class Movement : MonoBehaviour // (*) Hacer que el buff a la velocidad y 
     [SerializeField] float jumpForce; 
     [SerializeField]
     [Tooltip("Inclinación máxima del terreno para considerar que el objeto está en el suelo")]
-    [Range(0f, 70f)] float inclinacionMaxima = 45f;
+    [Range(0f, 90f)] float inclinacionMaxima = 45f;
     [SerializeField] LayerMask floorLayer;
     [SerializeField][Range(0, 1f)] float raycastDistance;
 
